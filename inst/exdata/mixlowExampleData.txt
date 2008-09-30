@@ -1,0 +1,361 @@
+global_notes	This file is an example file and the data are made up
+name	John Doe
+Institution	Big Univerity, Houston, TX
+email	john.doe@bigU.edu
+assay	cellTiter Blue
+conc_units	ug/ml
+rows	8
+cols	12
+space
+tray_label	t1d1
+tray_replicate	replicate A
+date	24-Mar-07
+cell_line	H460
+drug_name_full	full_drug_1_name
+drug_name_short	drug1
+composition	drug1=1	
+seed_density	1e3 cells/well
+assay_time	48
+tray_notes	10 uL reagent/well
+media	RPMI 1640 medium, adjusted
+drug_solvent	none
+solvent_drug_ratio	none
+space
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+resp	2288	3596	3694	3664	3880	3632	3365	2068	1542	1438	1197	1187	
+resp	3661	4067	3987	3734	3891	3994	3388	2033	1624	1328	1251	1092	
+resp	3317	3414	3199	3731	4299	3734	3196	2142	1730	1444	1268	1167	
+resp	2509	3639	3341	3524	3168	3442	2631	1832	1825	1290	1250	1021	
+resp	2686	3481	2736	2597	2890	3067	2611	1713	1513	1321	1209	1121	
+resp	540	539	532	526	539	538	547	539	573	604	671	773	
+resp	530	532	527	523	525	525	522	547	565	606	676	772	
+resp	543	542	530	521	576	538	547	557	582	619	680	780	
+space
+tray_label	t2d1
+tray_replicate	replicate B
+date	24-Mar-07
+cell_line	H460
+drug_name_full	full_drug_1_name
+drug_name_short	drug1
+composition	drug1=1	
+seed_density	1e3 cells/well
+assay_time	48
+tray_notes	10 uL reagent/well
+media	RPMI 1640, adjusted
+drug_solvent	none
+solvent_drug_ratio	none
+space
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+resp	2507	2279	2957	3253	3037	3060	2842	1838	1512	1326	955	953	
+resp	3396	4651	4279	4063	3985	4414	3496	2372	1929	1446	1256	1047	
+resp	2911	4468	3586	4385	3562	4167	3975	2298	1684	1476	1267	939	
+resp	2864	4184	3686	3787	4000	4170	.	.	1838	1321	1153	1002	
+resp	3124	3758	3685	3532	4233	3676	3515	2569	1685	1369	1179	979	
+resp	490	486	495	490	491	498	494	517	522	567	616	705	
+resp	496	482	487	484	499	503	484	512	532	558	625	712	
+resp	482	486	481	486	497	490	497	511	525	570	615	706	
+space
+tray_label	t3d1
+tray_replicate	replicate C
+date	24-Mar-07
+cell_line	H460
+drug_name_full	full_drug_1_name
+drug_name_short	drug1
+composition	drug1=1	
+seed_density	1e3 cells/well
+assay_time	48
+tray_notes	10 uL reagent/well
+media	RPMI 1640, adjusted
+drug_solvent	none
+solvent_drug_ratio	none
+space
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+resp	3964	4546	3801	4779	3507	4617	3916	2875	2448	2620	2056	1825	
+resp	3627	6055	6097	5618	5298	5340	5781	3740	3232	2502	2398	1691	
+resp	3728	5123	6128	5755	5877	6177	5278	4205	3144	2345	2194	1540	
+resp	4234	5362	5300	5414	5807	6354	5220	3878	2798	2644	2366	1526	
+resp	3733	4970	5541	5665	5980	5744	5861	3525	3077	2595	2246	1584	
+resp	547	533	544	538	541	536	542	556	578	627	690	793	
+resp	549	536	534	528	528	534	533	553	577	626	690	797	
+resp	550	545	546	536	544	545	548	561	584	630	693	801	
+space
+tray_label	t4d2
+tray_replicate	replicate A
+date	24-Mar-07
+cell_line	H460
+drug_name_full	full_drug_1_name
+drug_name_short	drug2
+composition	drug2=1	
+seed_density	1e3 cells/well
+assay_time	48
+tray_notes	10 uL reagent/well
+media	RPMI 1640, adjusted
+drug_solvent	none
+solvent_drug_ratio	none
+space
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+resp	2048	2026	2085	1920	2189	1655	1987	2207	1754	1756	1019	903	
+resp	1806	2912	2819	2815	2672	3059	2717	2682	2510	1921	1256	882	
+resp	2189	3356	3593	3180	3074	3295	2902	2902	2879	2067	1304	879	
+resp	2225	3019	2727	3255	3312	3152	2724	2423	2462	2049	1223	841	
+resp	1829	2624	2721	3458	2996	2374	2882	2626	2439	2035	1227	875	
+resp	538	523	522	527	530	533	545	534	549	568	606	690	
+resp	542	545	521	525	530	531	524	538	537	562	605	685	
+resp	538	532	540	533	540	541	541	542	563	582	627	697	
+space
+tray_label	t5d2
+tray_replicate	replicate B
+date	24-Mar-07
+cell_line	H460
+drug_name_full	full_drug_1_name
+drug_name_short	drug2
+composition	drug2=1	
+seed_density	1e3 cells/well
+assay_time	48
+tray_notes	10 uL reagent/well
+media	RPMI 1640, adjusted
+drug_solvent	none
+solvent_drug_ratio	none
+space
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+resp	2959	3452	3346	3208	3451	3133	3453	3374	3134	2621	1403	954	
+resp	3250	2789	3280	2916	3097	2695	2799	2957	2788	2580	1410	919	
+resp	3615	2667	2860	2707	3509	3346	3564	3446	2905	2234	1218	869	
+resp	3537	3157	3306	3081	3336	2686	2729	2984	2723	2293	1193	872	
+resp	3534	3827	4224	3667	3970	3865	3789	3617	3353	2914	1595	938	
+resp	506	513	505	505	512	516	512	526	533	555	591	652	
+resp	507	516	514	510	513	514	519	529	543	564	603	663	
+resp	508	507	505	509	509	512	504	521	548	566	601	669	
+space
+tray_label	t6d2
+tray_replicate	replicate C
+date	24-Mar-07
+cell_line	H460
+drug_name_full	full_drug_1_name
+drug_name_short	drug2
+composition	drug2=1	
+seed_density	1e3 cells/well
+assay_time	48
+tray_notes	10 uL reagent/well
+media	RPMI 1640, adjusted
+drug_solvent	none
+solvent_drug_ratio	none
+space
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+resp	3980	4315	4165	5435	4324	4206	4207	4796	5519	5371	4456	2200	
+resp	4478	7613	7471	6652	7832	7651	7610	7501	8268	6965	6292	2232	
+resp	5020	7389	7050	7714	7880	7852	7439	7828	7347	7727	6980	2101	
+resp	3816	7717	7321	7419	7487	7824	7411	8188	7088	7299	7277	2089	
+resp	4221	5983	6549	6149	6958	6766	6300	6344	6966	6608	5402	2005	
+resp	547	534	535	538	540	538	545	538	559	586	620	689	
+resp	548	542	533	533	532	537	538	543	559	580	615	694	
+resp	543	530	542	541	543	546	553	553	565	584	622	690	
+space
+tray_label	t7d3
+tray_replicate	replicate A
+date	24-Mar-07
+cell_line	H460
+drug_name_full	drug1+drug2
+drug_name_short	mix1
+composition	drug1=0.4	drug2=0.6	
+seed_density	1e3 cells/well
+assay_time	48
+tray_notes	10 uL reagent/well
+media	RPMI 1640, adjusted
+drug_solvent	none
+solvent_drug_ratio	none
+space
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+resp	3065	3327	3333	3214	3145	2917	2635	2775	2757	2044	650	689	
+resp	3026	4747	4768	4962	4867	5171	4577	4711	4273	2430	638	682	
+resp	2994	5332	5280	5082	4724	4887	5001	4452	5072	2635	634	680	
+resp	2667	4751	4186	4494	4815	4381	4822	4675	4033	1993	650	679	
+resp	2620	4138	4387	3810	4272	4159	4146	4160	3456	1808	700	684	
+resp	599	561	545	538	581	572	576	591	580	614	635	673	
+resp	588	596	552	564	610	569	565	593	604	628	648	682	
+resp	555	564	562	566	581	566	605	566	608	634	664	685	
+space
+tray_label	t8d3
+tray_replicate	replicate B
+date	24-Mar-07
+cell_line	H460
+drug_name_full	drug1+drug2
+drug_name_short	mix1
+composition	drug1=0.4	drug2=0.6	
+seed_density	1e3 cells/well
+assay_time	48
+tray_notes	10 uL reagent/well
+media	RPMI 1640, adjusted
+drug_solvent	none
+solvent_drug_ratio	none
+space
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+resp	2232	2703	2840	3162	3093	2589	3133	3062	3178	1464	574	619	
+resp	3113	3102	3175	2995	3089	2644	2991	3312	3247	1254	553	610	
+resp	3204	2941	2899	3269	2795	2954	3197	2952	2827	1344	563	596	
+resp	2844	2932	2653	3334	2769	3131	2359	2639	2618	1174	562	597	
+resp	3037	2728	3085	3305	3410	3285	3145	2838	3046	1405	553	593	
+resp	499	496	489	489	498	494	495	513	523	533	557	602	
+resp	485	482	492	490	494	492	493	502	520	535	547	594	
+resp	502	488	481	491	491	492	495	508	511	526	542	604	
+space
+tray_label	t9d3
+tray_replicate	replicate C
+date	24-Mar-07
+cell_line	H460
+drug_name_full	drug1+drug2
+drug_name_short	mix1
+composition	drug1=0.4	drug2=0.6	
+seed_density	1e3 cells/well
+assay_time	48
+tray_notes	10 uL reagent/well
+media	RPMI 1640, adjusted
+drug_solvent	none
+solvent_drug_ratio	none
+space
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+conc	0	0	0.1171875	1.171875	2.34375	4.6875	9.375	18.75	37.5	75	150	300	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+label	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	bbc	
+resp	5319	3630	4788	5019	6213	4310	2006	4995	4909	2291	827	695	
+resp	6608	5543	6461	6277	5393	5121	4325	5225	5601	6014	1107	675	
+resp	7115	6784	6219	6247	4736	5624	6151	5668	6481	5969	682	682	
+resp	6647	5563	5902	5712	6885	5045	6465	5079	6096	6370	991	681	
+resp	4863	4833	4664	5620	5568	5424	5557	5662	6129	5867	660	677	
+resp	550	543	542	541	549	548	561	568	582	598	623	672	
+resp	549	544	541	544	546	548	558	571	582	599	620	667	
+resp	557	548	542	542	549	551	563	569	589	599	619	684	
+space
+

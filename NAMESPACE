@@ -1,0 +1,26 @@
+##exportPattern("^[[:alpha:]]+")
+export(
+  doLoewe,
+  doNlme,
+  doNls,
+  getCellLines,
+  getDrugs,
+  getNlsParameterDefaults,
+  getTrays,
+
+  NlmePrintVarFunctions,
+
+  plotLoeweData,
+  plotMixlowData,
+  plotNlmeData,
+  plotNlsData,
+  prepareData,
+  readDataFile,
+  summarizeData)
+
+#       mixlow-package,
+#   mixlowExampleData.txt,
+#   mixlowData,
+#  nlmeData,
+#   nlsData,
+#   trayData
