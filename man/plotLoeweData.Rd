@@ -24,7 +24,7 @@ significant synergism is occurring. When the upper and lower confidence
 interval limits both fall above 1.0, then statistically significant 
 antagonism is occurring. The second figure shows the estimated concentration-
 response curves for each drug and the mixture. To save both figures to disk,
-sandwich the \code{plotLoeweData} command between \code{pdf} and code{dev.off}
+sandwich the \code{plotLoeweData} command between \code{pdf} and \code{dev.off}
 commands, for example.
 }
 \value{
