@@ -2,7 +2,10 @@
 function(ciL)
   {
   # calculates a interaction score as area under the index curve of significant antagoism - significant synergism
-  score.interval = c(0.05,0.95)
+  
+  
+  maxx = max(ciL$Fraction.Affected) -.03
+  score.interval = c(0.05,maxx)
   antag = numeric()
   syner = numeric()
   antag2 = 0

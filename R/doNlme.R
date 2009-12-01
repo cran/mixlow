@@ -1,18 +1,16 @@
 `doNlme` <-
-function(mixlowData, nlsData, drugs=getDrugs(mixlowData), analysis="single", 
+function(mixlowData, nlsData, drugs=getDrugs(mixlowData), analysis="multiple", 
   varFunction=1, method="ML", verbose=FALSE) {
   ## outer loop that sets up calls to NLME
 
   if (!inherits(nlsData, "nlsData")) 
     stop("use only with \"nlsData\" objects")  
   
-  if (analysis=="single" & is.list(varFunction)==FALSE){
-    # varFunction is a vector, so make a list
-    varFunction0 = list(list(varFunction=varFunction))
-    for (i in seq(2, length(drugs))) {
-      varFunction0[[i]] = varFunction
-      }
+  if (analysis=="single") {
+    if (is.list(varFunction)==FALSE)        stop("VarFunction must be a list of vectors named by drug")
+    if (length(names(varFunction)) == 0)    stop("VarFunction must be a list of vectors named by drug") 
     }
+  varFunction0 = varFunction
   
   nls.estimates = nlsData$nlsEstimates
   data00 = mixlowData$concentrationResponse
@@ -24,20 +22,23 @@ function(mixlowData, nlsData, drugs=getDrugs(mixlowData), analysis="single",
   
   # order drugs so mixture is last
   newDrugVector = numeric(0)
+  mixFlag = 0
   for (i in seq(1,length(drugs))) {
-    mixFlag = 0
     dr = drugs[i]
     ratio = drugRatios[,dr]
+
+    
     if (all(ratio==0)) {
       if (mixFlag == 1)
         stop("Drugs for analysis can contain only one mixture")
       mixFlag = 1
       mix = dr
       }
-    if (mixFlag == 0)
+    if (any(ratio>0))
       newDrugVector = c(newDrugVector,dr)
     }
   newDrugVector = c(newDrugVector,mix)
+
   drugs0 = newDrugVector
   
   # error if no mixture
@@ -49,6 +50,7 @@ function(mixlowData, nlsData, drugs=getDrugs(mixlowData), analysis="single",
 
   nlmeResults = list(0)
   nlmeGraph = list(0)
+  nlmeModels = list(0)
   
   numberOfAnalysis = 1
   if (analysis == "single")
@@ -61,7 +63,7 @@ function(mixlowData, nlsData, drugs=getDrugs(mixlowData), analysis="single",
     drugs = drugs0
     if (numberOfAnalysis > 1) {
       drugs = drugs0[setNum]
-      varFunction = varFunction0[[setNum]]
+      varFunction = varFunction0[[drugs]]
       }
 
     #dr1 = drugs[1]
@@ -83,7 +85,7 @@ function(mixlowData, nlsData, drugs=getDrugs(mixlowData), analysis="single",
     ord2 = substr(ord2,1,nchar(ord2)-1)
     
     if (verbose==TRUE) writeLines("######################################################################\n")
-    if (verbose==TRUE) writeLines(paste("\n **** drugs for round ", setNum, " are: ", ord2, "  ****",sep=""))
+    if (verbose==TRUE) writeLines(paste("\n **** NLME analysis, drugs for round ", setNum, " are: ", ord2, "  ****",sep=""))
     
     # if only one tray, then duplicate data
     new = 20000
@@ -117,8 +119,23 @@ function(mixlowData, nlsData, drugs=getDrugs(mixlowData), analysis="single",
     names(param) = c("drug","g","p","u","lambda")
     paramList = as.list(param)
     
+
+    
+    ord3 = rep(0,length(ord))
+    for (i in 1:length(ord)) ord3[ord == paramList$drug[i]] <- i
+    #for (i in 1:length(ord)) {ord3[paramList$drug==ord[i]] <- i
+    
+
+    paramList$drug = paramList$drug[ord3]
+    paramList$g = paramList$g[ord3]
+    paramList$p = paramList$p[ord3]
+    paramList$u = paramList$u[ord3]
+    paramList$lambda = paramList$lambda[ord3]
+    
+    
     if (length(paramList$drug) != length(ord)) {stop("** Mismatch in length of drugs and parameter estimates")}
-    if (any(paramList$drug != ord)) {stop("** Drugs/param list in wrong order")}
+    if (any(paramList$drug != ord)) {
+      stop("** Drugs/param list in wrong order")}
     
     paramList$u = mean(as.numeric(as.vector(combo$u)))
     paramList$p = paramList$p # p is in log form
@@ -142,9 +159,13 @@ function(mixlowData, nlsData, drugs=getDrugs(mixlowData), analysis="single",
     
     # collect results for graphing
     nlmeGraph[[setNum]] = list(pred0=best2$pred0, dat1=dat1, ord=ord, residu=best2$residu, best=best2$best)
+    
+    # alter formula so that anova can be called on models
+    #best2$mbest$call$model = y~1
+    nlmeModels[[setNum]] = best2$mbest
 
     }
-  returnList = list(nlmeResults=nlmeResults, nlmeGraph=nlmeGraph)
+  returnList = list(nlmeResults=nlmeResults, nlmeGraph=nlmeGraph, nlmeModels=nlmeModels)
   class(returnList) <- c("nlmeData")
   return (returnList)
 

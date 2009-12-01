@@ -11,7 +11,7 @@ for the fixed effects are obtained from the output of the
 \code{doNls} function. 
 }
 \usage{
-doNlme(mixlowData, nlsData, drugs=getDrugs(mixlowData), analysis="single", 
+doNlme(mixlowData, nlsData, drugs=getDrugs(mixlowData), analysis="multiple", 
     varFunction= 1, method="ML", verbose=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -28,17 +28,12 @@ doNlme(mixlowData, nlsData, drugs=getDrugs(mixlowData), analysis="single",
         or \dQuote{multiple} where \dQuote{single} indicates that each 
         drug is to be analyzed separately and \dQuote{multiple} indicates 
         that all drugs should be analyzed together.  The default is 
-        \dQuote{single}.} 
-    \item{varFunction}{An optional numerical vector or list of lists 
-        from the set (1,2,3,4) that specifies the variance function(s) 
-        to be used for each analysis.  If \code{analysis} is \dQuote{multiple},
-        \code{varFunction} can be a vector.  If \code{analysis} is 
-        \dQuote{single} it can also be a vector, in which case all drugs
-        will use the same varFunction vector.  Or, if \code{analysis} is 
-        \dQuote{single}, a list can be supplied of length equal to the 
-        number of drugs. Each entry in the list should be a list with named
-        component varFunction.  This allows a different set of varFunctions
-        to be used with each drug. The default is 1.}
+        \dQuote{multiple}.} 
+    \item{varFunction}{If \code{analysis} is \dQuote{multiple}, an optional 
+        numerical vector from the set (1,2,3,4) that specifies the variance 
+        function(s) to be used for each analysis.  The default is 1. If \code{analysis} 
+        is \dQuote{single} a list, named by drug, must be provided that specifies 
+        a vector of variance functions to be used for each drug. }
     \item{method}{An optional character string.  If \dQuote{REML} the 
         model is fit by maximizing the restricted log-likelihood.  If 
         \dQuote{ML} the log-likelihood is maximized.  Default is  
@@ -128,14 +123,14 @@ following components:
         \item{ord}{A string containing drug names}
         \item{residu}{Residuals from the best model}
         \item{best}{A string denoting the name of the best model}}}
-
+    \item{nlmeModels}{A list of the best model objects}
 
 }
 \references{The model is described in Boik J.C., Newman R.A., Boik R.J.
 (2008) Quantifying synergism/antagonism using nonlinear mixed-effects 
 modeling: a simulation study.  Statistics in Medicine 27(7), 1040-61}
 \author{John Boik \email{jcboik@stanford.edu}}
-\seealso{\code{\link{doNls}}, \code{\link{plotNlmeData}}}
+\seealso{\code{\link{doNls}}, \code{\link{plot.nlmeData}}}
 \examples{
 # mixlowData data object is obtained using the prepareData function
 data(mixlowData)

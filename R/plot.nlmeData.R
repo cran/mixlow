@@ -1,15 +1,19 @@
-`plotNlmeData` <-
-function(nlmeData, ask = prod(par("mfcol")) < length(nlmeData$nlmeGraph) && dev.interactive(), ...) {
+`plot.nlmeData` <-
+function(x, ...) {
   ## graphs results from the NLME analysis
   
-  arglist = list(...)
-  if (!inherits(nlmeData, "nlmeData")) 
+  
+  if (!inherits(x, "nlmeData")) 
     stop("use only with \"nlmeData\" objects")
 
-  if (ask) {
-    opar <- par(ask=TRUE)
-    on.exit(par(opar))
-    }
+  arglist = list(...)
+  ask = arglist$ask
+  if (is.null(arglist$ask)) ask = prod(par("mfcol")) < length(x$nlmeGraph) && dev.interactive()
+
+  opar <- par(ask=ask)
+  on.exit(par(opar))
+  
+  nlmeData = x
   
   nlmeGraph = nlmeData$nlmeGraph    
   
@@ -51,10 +55,10 @@ function(nlmeData, ask = prod(par("mfcol")) < length(nlmeData$nlmeGraph) && dev.
           tit = arglist$main
         
         
-        ran = c(tmp2$adj_resp[tmp2$tray==ii], pred0[tmp2$tray==ii,2], pred0[tmp2$tray==ii,1])
+        rang = c(tmp2$adj_resp[tmp2$tray==ii], pred0[tmp2$tray==ii,2], pred0[tmp2$tray==ii,1])
         
         plot(pred0[dat1$drug==ord[jj] & dat1$tray==ii, 1] ~ dat1$adj_conc[dat1$drug==ord[jj] & dat1$tray==ii],
-          log="x",type="n", ylim=range(ran), xlim=range(dat1$adj_conc[dat1$drug==ord[jj] & dat1$tray==ii]),
+          log="x",type="n", ylim=range(rang), xlim=range(dat1$adj_conc[dat1$drug==ord[jj] & dat1$tray==ii]),
           main= tit, xlab= xLab, ylab= yLab)
         
         points((dat1$adj_resp[dat1$drug==ord[jj] & dat1$tray==ii])~dat1$adj_conc[dat1$drug==ord[jj] & dat1$tray==ii], pch=1, col=Cols[1])
@@ -76,9 +80,25 @@ function(nlmeData, ask = prod(par("mfcol")) < length(nlmeData$nlmeGraph) && dev.
     
     # make qqnorm plots for each drug  
     for (jj in 1:length(ord)) {
-      tit = paste("NLME: ",ord[jj],", Cell=", as.character(dat1$cell[1]), "\n Model= ",  best, sep="")
+      tit = paste("NLME: Drug= ",ord[jj],", Cell=", as.character(dat1$cell[1]), "\n Model= ",  best, sep="")
       qqnorm(residu[dat1$drug==ord[jj]], main= tit)
       qqline(residu[dat1$drug==ord[jj]] )
+      grid(col= "black", lwd = 1)
+      }
+
+
+    # make residual vs predicted plots for each drug  
+    for (jj in 1:length(ord)) {
+      tit = paste("NLME: Drug= ",ord[jj],", Cell=", as.character(dat1$cell[1]), "\n Model= ",  best, sep="")
+      plot(residu[dat1$drug==ord[jj]] ~ pred0[dat1$drug==ord[jj], wid], main= tit, type="p", xlab="Predicted", ylab="Residuals" )
+      grid(col= "black", lwd = 1)
+      }
+
+    # make abs std. residual vs predicted plots for each drug  
+    for (jj in 1:length(ord)) {
+      tit = paste("NLME: Drug= ",ord[jj],", Cell=", as.character(dat1$cell[1]), "\n Model= ",  best, sep="")
+      StdResid = residu[dat1$drug==ord[jj]]/sd(residu[dat1$drug==ord[jj]])
+      plot(StdResid ~ pred0[dat1$drug==ord[jj], wid], main= tit, type="p", xlab="Predicted", ylab="Standardized Residuals")
       grid(col= "black", lwd = 1)
       }
       

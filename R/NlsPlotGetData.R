@@ -36,8 +36,10 @@ function(mixlowData, nlsData, trays)
     
     # graph adjustments to response
     for (j in seq(1,length(yAdjust))){
-      if (yAdjust[[j]]$tray == tr) Adj = yAdjust[[j]]
-      break
+      if (yAdjust[[j]]$tray == tr) {
+        Adj = yAdjust[[j]]
+        break
+        }
       }
     
     xA = Adj$x
@@ -78,8 +80,10 @@ function(mixlowData, nlsData, trays)
       u = exp(as.numeric(as.vector(nls.estimates$u[nls.estimates$tray==tr])))
       for (j in seq(1,length(nls.graphing)))
         {
-        if (nls.graphing[[j]]$tray == tr) tmp4 = nls.graphing[[j]]
-        break
+        if (nls.graphing[[j]]$tray == tr) {
+          tmp4 = nls.graphing[[j]]
+          break
+          }
         }
       yall = c(yall,tmp4$pred/u)
       }
@@ -97,9 +101,11 @@ function(mixlowData, nlsData, trays)
       {
       u = exp(as.numeric(as.vector(nls.estimates$u[nls.estimates$tray==tr])))
       for (j in seq(1,length(nls.graphing))){
-        if (nls.graphing[[j]]$tray == tr) tmp5 = nls.graphing[[j]]
-      break
-      }
+        if (nls.graphing[[j]]$tray == tr) {
+          tmp5 = nls.graphing[[j]]
+          break
+          }
+        }
       cnt = cnt + 1
       lineList[[cnt]] = list(linesY= tmp5$pred/u, linesX= tmp5$xx)
       }

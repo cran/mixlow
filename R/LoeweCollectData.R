@@ -26,7 +26,7 @@ function(nlmeResults, drugRatios) {
     mixtureList$mixture = nlmeResults[[i+1]]$drug
     mixtureList$locations = seq(1,length(nlmeResults))
     }
-
+  
   # check that ratios for single drugs is unique for mixtures and 1 for drug itself
   frac = numeric()
   for (dr in mixtureList$drugs) {

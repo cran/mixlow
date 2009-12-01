@@ -1,4 +1,4 @@
-##exportPattern("^[[:alpha:]]+")
+
 export(
   doLoewe,
   doNlme,
@@ -9,18 +9,21 @@ export(
   getTrays,
 
   NlmePrintVarFunctions,
+  
+  plot.loeweData,
+  plot.mixlowData,
+  plot.nlmeData,
+  plot.nlsData,
 
-  plotLoeweData,
-  plotMixlowData,
-  plotNlmeData,
-  plotNlsData,
+
+  print.nlmeData,
+  print.nlsData,
+  print.mixlowData,
+  print.loeweData,
+
+  
   prepareData,
   readDataFile,
   summarizeData)
 
-#       mixlow-package,
-#   mixlowExampleData.txt,
-#   mixlowData,
-#  nlmeData,
-#   nlsData,
-#   trayData
+

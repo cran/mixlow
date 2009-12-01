@@ -67,7 +67,7 @@ modeling: a simulation study.  Statistics in Medicine 27(7), 1040-61}
 \author{John Boik \email{jcboik@stanford.edu}}
 
 \seealso{
-    \code{\link{doNlme}}, \code{\link{plotLoeweData}}
+    \code{\link{doNlme}}, \code{\link{plot.loeweData}}
 }
 \examples{
 # mixlowData data object is obtained using the prepareData function

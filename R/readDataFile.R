@@ -118,7 +118,8 @@ function(filename, excludeWells=NULL) {
     }
   }
   
-  data0 = data0[data0$label != 0,]
+  
+  data0 = data0[data0$label != "",]
   returnList = list(concentrationResponse= data0, drugRatios= drugRatios)
   class(returnList) <- "trayData"
   return (returnList)

@@ -29,10 +29,12 @@ function(data, trays)
     
     # graph adjustments to response
     for (j in seq(1,length(yAdjust))){
-      if (yAdjust[[j]]$tray == tr) Adj = yAdjust[[j]]
-      break
+      if (yAdjust[[j]]$tray == tr) {
+        Adj = yAdjust[[j]]
+        break
+        }
       }
-    
+
     xA = Adj$x
     yA = Adj$y
     xxA = Adj$xx

@@ -19,7 +19,7 @@ function(mixlowData, parameterDefaults, lambdaThreshold=0.05, numRandomTries=10,
   
   # ----------------- loop through each tray and call NLS model -----------------
   for (tr in trays) {
-    if (verbose==TRUE) writeLines(paste("\n---- tray ",tr," ----\n",sep=""))
+    if (verbose==TRUE) writeLines(paste("\n---- NLS assessment of tray ",tr," ----\n",sep=""))
     trayCnt = trayCnt + 1
     drug = drugRatios$drug[drugRatios$tray==tr]
     cell = drugRatios$cell[drugRatios$tray==tr]
@@ -115,7 +115,7 @@ function(mixlowData, parameterDefaults, lambdaThreshold=0.05, numRandomTries=10,
     }
 
   names(nlsEstimates) <- c("tray","drug","cell","g","p","u","lambda")
-  if (verbose==TRUE) writeLines("\n-- final results --")
+  if (verbose==TRUE) writeLines("\n---- Final results of NLS assessment ----")
   if (verbose==TRUE) print (nlsEstimates)
   if (verbose==TRUE) writeLines("\n")
 

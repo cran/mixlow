@@ -1,15 +1,25 @@
-`plotNlsData` <-
-function(nlsData, mixlowData, trays = getTrays(mixlowData), 
-    ask = prod(par("mfcol")) < length(trays) && dev.interactive(), showBlanks= TRUE) {
+`plot.nlsData` <-
+function(x, ...) {
   ## graphs results from the NLS analysis
 
-  if (!inherits(nlsData, "nlsData")) 
+  if (!inherits(x, "nlsData")) 
     stop("use only with \"nlsData\" objects")
-
-  if (ask) {
-    opar <- par(ask=TRUE)
-    on.exit(par(opar))
-    }
+  
+  arglist = list(...)   
+  ask = arglist$ask
+  trays = arglist$trays
+  showBlanks = arglist$showBlanks
+  mixlowData = arglist$mixlowData
+  
+  if (is.null(arglist$mixlowData)) stop("argument mixlowData is required")
+  if (is.null(arglist$trays)) trays = getTrays(mixlowData)
+  if (is.null(arglist$ask)) ask = prod(par("mfcol")) < length(trays) && dev.interactive() 
+  if (is.null(arglist$showBlanks)) showBlanks= FALSE
+  
+  opar <- par(ask=ask)
+  on.exit(par(opar))
+  
+  nlsData = x
   
   # collect data for graphing
   graphData = NlsPlotGetData (mixlowData, nlsData, trays)
@@ -72,6 +82,8 @@ function(nlsData, mixlowData, trays = getTrays(mixlowData),
 
     drugData = graphData$drugs[[ii]] 
     
+
+    
     # get tray list
     Units = drugData$Units
     drugTrays = drugData$trays
@@ -97,7 +109,7 @@ function(nlsData, mixlowData, trays = getTrays(mixlowData),
     grid(col= "black", lwd = 1)
     
     }
-  return(graphData)
+  
   }
 
     

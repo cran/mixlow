@@ -1,0 +1,18 @@
+citHeader("To cite package 'mixlow' in publications use:")
+
+desc <- packageDescription("mixlow")
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", desc$Date)
+vers <- paste("R package version", desc$Version)
+
+citEntry(entry="Manual",
+         title = "mixlow: software for assessing drug synergism/antagonism",
+         author = personList(as.person("John C. Boik")),
+         year = year,
+         note = vers,
+
+         textVersion =
+         paste("John C. Boik (",
+               year,
+               "). mixlow: software for assessing drug synergism/antagonism. ",
+               vers, ".", sep=""))
+

@@ -27,7 +27,7 @@ function(ord, paramList, dat1, method, varFunction, cell, analysis, verbose)
   for (chk in c("with.lambda", "no.lambda"))
     {
     if (chk == "with.lambda" & fFlag == FALSE) next
-    if (verbose==TRUE) writeLines(paste("\n============  using: ",chk," ============\n",sep=""))
+    if (verbose==TRUE) writeLines(paste("\n============ NLME analysis, using: ",chk," ============\n",sep=""))
     
     # make formula and adjust parameter and fixed-effects lists, and make list for starting values, all for no.lambda model
     formu = as.formula(adj_resp ~ ifelse(conc>0, (exp(u)* 1/(1+(exp(log(conc)-p))^exp(g)) ), exp(u)  ))
@@ -47,13 +47,13 @@ function(ord, paramList, dat1, method, varFunction, cell, analysis, verbose)
     
                                                   
     # ------------- loop through NLME call for each error function desired 
-    if (is.list(varFunction))
-      varFunction = as.numeric(unlist(varFunction))
-      
+    
     for (varst in varFunction)
       {
       # run model
-      if (verbose==TRUE) writeLines(paste("\n-------------------- variance function= ",varst,"--------------\n",sep=""))
+      if (verbose==TRUE) writeLines(paste("\n-------------------- NLME analysis, variance function= ",varst,"--------------\n",sep=""))
+      
+      
       
       # remove object mv1 if present
       objs = objects()
@@ -78,8 +78,7 @@ function(ord, paramList, dat1, method, varFunction, cell, analysis, verbose)
         eval(parse(text=strr2))
         if (verbose==TRUE) writeLines(c("\n************************",strr,"*********************************\n"))
         if (verbose==TRUE) print(summary(mv1))
-        if (verbose==TRUE) writeLines("\n")
-        if (verbose==TRUE) print("coef")
+        if (verbose==TRUE) writeLines("\n------- coefficients:\n")
         if (verbose==TRUE) print(mv1$coefficients)
         # check F values
         ano <- anova(mv1)
@@ -91,7 +90,7 @@ function(ord, paramList, dat1, method, varFunction, cell, analysis, verbose)
         {
         if (BIC(mv1) < lowBIC)
           {
-          if (verbose==TRUE) writeLines(paste("\n new BIC = ",BIC(mv1),"\n",sep=""))
+          if (verbose==TRUE) writeLines(paste("\n new best BIC = ",BIC(mv1),"\n",sep=""))
           lowBIC <- BIC(mv1)
           }
         }
@@ -106,13 +105,13 @@ function(ord, paramList, dat1, method, varFunction, cell, analysis, verbose)
   rm(grp)
   
   if (verbose==TRUE) writeLines("\n\n********")
-  if (verbose==TRUE) writeLines(paste("---------- finished all models, drugs= ", ord2, "  ----------\n",sep = ""))
+  if (verbose==TRUE) writeLines(paste("---------- NLME analysis, finished all models, drugs= ", ord2, "  ----------\n",sep = ""))
   
   # find best model by searching for saved model objects, then comparing BIC values to best BIC
   good <- ls(pattern="^model_varFun")
   if (length(good)<1)
     {
-    if (verbose==TRUE) print("no models were suitable")
+    if (verbose==TRUE) writeLines("\nno models were suitable\n")
     best = 0
     mbest = 0
     if (verbose==TRUE) writeLines(" ** best= NULL **  ")

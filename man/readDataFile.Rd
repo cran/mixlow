@@ -11,12 +11,12 @@ readDataFile(filename, excludeWells)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
     \item{filename}{A string designating the data file to be read.}
-    \item{excludeWells}{An optional list that specifies rows and columns
-        that should be skipped in the analysis.  Paired components of 
+    \item{excludeWells}{An optional list that specifies cells 
+        that should be skipped in the analysis.  Cells are identified by row and column numbers.  Paired components of 
         the list are:
         \describe{
-        \item{row}{row to skip}
-        \item{col}{column to skip}} 
+        \item{row}{skip a cell in row}
+        \item{col}{skip a cell in column}} 
         } 
 }
 \details{

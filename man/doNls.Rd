@@ -46,7 +46,7 @@ If a lambda term is used, its value should be between zero and 0.5.
 A list of type \code{nlsData} of length equal to the number of trays with 
 the following components:
     \item{nlsEstimates}{Data frame containing parameter estimates}
-    \item{nlsGraphing}{List used by \code{plotNlsData} for making graphs:
+    \item{nlsGraphing}{List used by \code{plot.nlsData} for making graphs:
         \describe{
         \item{tray}{String tray name}
         \item{drug}{String drug name}
@@ -66,7 +66,7 @@ synergism/antagonism using nonlinear mixed-effects modeling: a
 simulation study.  Statistics in Medicine 27(7), 1040-61}
 \author{John Boik \email{jcboik@stanford.edu}}
 
-\seealso{\code{\link{prepareData}}, \code{\link{plotNlsData}}}
+\seealso{\code{\link{prepareData}}, \code{\link{plot.nlsData}}}
 \examples{
 
 # mixlowData data object is obtained using the prepareData function

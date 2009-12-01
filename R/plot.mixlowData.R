@@ -1,13 +1,23 @@
-`plotMixlowData` <-
-function(mixlowData, trays = getTrays(mixlowData), ask = prod(par("mfcol")) < length(trays) && dev.interactive(), showBlanks= TRUE) {
+`plot.mixlowData` <-
+function(x, ...) {
   ## plots the adjusted data by tray
   
-  if (!inherits(mixlowData, "mixlowData")) 
+  if (!inherits(x, "mixlowData")) 
     stop("Use only with \"mixlowData\" objects.  Run prepareData() first.")
-  if (ask) {
-    opar <- par(ask=TRUE)
-    on.exit(par(opar))
-    }
+  
+  arglist = list(...)  
+  trays = arglist$trays
+  ask = arglist$ask
+  showBlanks = arglist$showBlanks
+  
+  if (is.null(arglist$trays)) trays = getTrays(x)
+  if (is.null(arglist$ask)) ask = prod(par("mfcol")) < length(trays) && dev.interactive()
+  if (is.null(arglist$showBlanks)) showBlanks= FALSE
+  
+  opar <- par(ask=ask)
+  on.exit(par(opar))
+  
+  mixlowData = x
   
   # collect data for plotting
   graphingData = mixlowPlotGetData(mixlowData,trays)
@@ -43,7 +53,7 @@ function(mixlowData, trays = getTrays(mixlowData), ask = prod(par("mfcol")) < le
       col= c(Cols[1]), lwd= c(1.5,2) )
     }
 
-  return(graphingData)
+  
   }
   
   

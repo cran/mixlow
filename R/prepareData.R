@@ -1,5 +1,5 @@
 `prepareData` <-
-function(trayData, drugs= NULL, trays=NULL, cellLines=NULL) 
+function(trayData, drugs= NULL, trays=NULL, cellLines=NULL, degree=3) 
   {
   ## adjusts all responses to account for "blanks", adds two new columns to data frame
   ## returns adjusted data along with data frame for plotting "blanks" values
@@ -43,6 +43,7 @@ function(trayData, drugs= NULL, trays=NULL, cellLines=NULL)
   crData$adj_resp = crData$resp
 
   # adjust conc values for adj_conc column (to allow printing of zero conc values)
+  # concentrations of zero are adjusted to 1/1000 of the lowest used conc to allow graphing
   for (tr in trays)
     {
     # get controls
@@ -53,8 +54,8 @@ function(trayData, drugs= NULL, trays=NULL, cellLines=NULL)
     crData$adj_conc[crData$tray==tr & crData$conc == 0] = minn/1000.
     }
 
-  # adjust for blanks, assumes all rows in column receive the same conc
-  # below, concentrations of zero are adjusted to 1/1000 of the lowest used conc to allow graphing
+  # adjust for blanks
+  
   # below, responses are adjusted to account for bbt or bbc data (blanks)
   plottingData = vector("list", length(trays) )
   trayCnt = 0
@@ -64,22 +65,19 @@ function(trayData, drugs= NULL, trays=NULL, cellLines=NULL)
     # check that both bbt and bbc are not used in the same tray
     tmp1 = as.vector(crData$label[crData$tray==tr & crData$label != "rx"])
 
-    if (("bbt" %in% tmp) & ("bbc" %in% tmp))
+    if (("bbt" %in% tmp1) & ("bbc" %in% tmp1))
       {stop("Cannot use both bbc and bbt in data for a given tray")}
     if (unique(tmp1) == "bbt")
       {
       # adjust conc for bbt blanks: -----------------------------------------
-      tmp = as.list(crData[crData$tray==tr & crData$label == "bbt", c("col", "adj_conc", "resp")])
+      tmp = as.list(crData[crData$tray==tr & crData$label == "bbt", c("adj_conc", "resp")])
       blank = mean(tmp$resp)
       crData$adj_resp[crData$tray==tr & crData$label == "rx"] = crData$resp[crData$tray==tr & crData$label == "rx"] - blank
       
-      col_lookup = unique(crData[crData$tray==tr & crData$label == "rx", c("col","adj_conc")])
-      tmp = merge(tmp, col_lookup, by= "col")
-
       # save  for plotting
       tmp2 = crData[crData$tray==tr & crData$label == "rx", ]
       x2 = tmp2$adj_conc
-      y = tmp$resp
+      y = tmp2$resp
       x = rep(0,length(y))
       xx = exp(seq(log(min(x2)),log(max(x2)),length.out = 500))
       pred = rep(blank,length(xx))
@@ -88,21 +86,23 @@ function(trayData, drugs= NULL, trays=NULL, cellLines=NULL)
     if (unique(tmp1) == "bbc")
       {
       # adjust conc for bbc blanks: -----------------------------------------
-      tmp = crData[crData$tray==tr & crData$label == "bbc", c("col", "adj_conc", "resp")]
-
-      col_lookup = unique(crData[crData$tray==tr & crData$label == "rx", c("col","adj_conc")])
-      tmp = merge(tmp,col_lookup, by= "col")
+      tmp = crData[crData$tray==tr & crData$label == "bbc", c("adj_conc", "resp")]
+      tmp = tapply(tmp$resp, tmp$adj_conc, mean)       
       
       # fit response~concentration in "blanks" wells using polynomial
-      y = tmp$resp
-      x = tmp$adj_conc.y
-      model = nls(y~ a + b*x + c*x^2 + d*x^3 + e*x^4, data.frame(y,x), start= c(a=min(y),b=0,c=0,d=0,e=0))
+      y = as.numeric(tmp)
+      x = as.numeric(names(tmp))
+      if (degree == 4) model = nls(y~ a + b*x + c*x^2 + d*x^3 + e*x^4, data.frame(y,x), start= c(a=min(y),b=0,c=0,d=0,e=0))
+      if (degree == 3) model = nls(y~ a + b*x + c*x^2 + d*x^3 , data.frame(y,x), start= c(a=min(y),b=0,c=0,d=0))
+      if (degree == 2) model = nls(y~ a + b*x + c*x^2, data.frame(y,x), start= c(a=min(y),b=0,c=0))
+      if (degree == 1) model = nls(y~ a + b*x, data.frame(y,x), start= c(a=min(y),b=0))
       if (model$convInfo$isConv == FALSE)
         {stop("nls model did not converge for bbc")}
       sm = summary(model)
 
       param = sm$parameters[,1]
 
+      # save  for plotting
       tmp2 = crData[crData$tray==tr & crData$label == "rx", ]
       x2 = tmp2$adj_conc
       xx = exp(seq(log(min(x2)),log(max(x2)),length.out = 500))
