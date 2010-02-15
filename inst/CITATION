@@ -1,8 +1,9 @@
 citHeader("To cite package 'mixlow' in publications use:")
 
-desc <- packageDescription("mixlow")
-year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", desc$Date)
-vers <- paste("R package version", desc$Version)
+if(!exists("meta") || is.null(meta)) meta <- packageDescription("mixlow")
+
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
+vers <- paste("R package version", meta$Version)
 
 citEntry(entry="Manual",
          title = "mixlow: software for assessing drug synergism/antagonism",

@@ -1,0 +1,360 @@
+global_notes	This file contains data for a 1:1 topotecan/vincristine experiment in A549 lung cancer cells											
+name	John Boik											
+Institution	Univ Texas Houston Health Sciences Center											
+email												
+assay	cellTiter Blue											
+conc_units	ug/ml											
+rows	8											
+cols	12											
+space												
+tray_label	topo_tr1											
+tray_replicate	replicate A											
+date	2005/10/29											
+cell_line	A549											
+drug_name_full	topotecan											
+drug_name_short	topo											
+composition	topo=1											
+seed_density	1e3 cells/well											
+assay_time	72											
+tray_notes	20 uL reagent/well											
+media	F12k medium, adjusted											
+drug_solvent	PBS											
+solvent_drug_ratio	NA											
+space												
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+resp	1826	1744	1682	1330	996	887	745	727	717	643	616	613
+resp	1559	1669	1814	1454	920	964	817	728	694	640	618	609
+resp	1792	1632	1476	1499	1281	1000	804	739	737	644	620	617
+resp	2099	2117	2119	1637	1180	959	841	764	737	649	616	616
+resp	1762	1491	1719	1525	1202	944	808	798	735	641	613	614
+resp	1704	1587	1707	1532	1109	856	782	721	756	631	627	616
+resp	.	.	.	.	.	.	.	.	.	.	.	.
+resp	617	615	618	616	612	614	.	.	.	.	.	.
+space												
+tray_label	topo_tr2											
+tray_replicate	replicate B											
+date	2005/10/29											
+cell_line	A549											
+drug_name_full	topotecan											
+drug_name_short	topo											
+composition	topo=1											
+seed_density	1e3 cells/well											
+assay_time	72											
+tray_notes	20 uL reagent/well											
+media	F12k medium, adjusted											
+drug_solvent	PBS											
+solvent_drug_ratio	NA											
+space												
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+resp	7919	4699	4615	5089	2519	1627	1078	904	874	658	629	625
+resp	7881	10123	8923	5520	3291	2312	1311	1366	935	900	640	629
+resp	7535	8388	6097	6293	2744	1793	1475	1226	946	676	624	630
+resp	8792	9627	6817	5735	3433	2842	1769	1497	976	678	627	615
+resp	9964	6678	4472	6891	3412	2671	1511	1268	987	698	646	636
+resp	7773	8057	5435	4811	3732	2280	1680	1042	938	671	635	628
+resp	.	.	.	.	.	.	.	.	.	.	.	.
+resp	623	622	623	622	623	618	.	.	.	.	.	.
+space											
+tray_label	topo_tr3											
+tray_replicate	replicate C											
+date	2005/10/29											
+cell_line	A549											
+drug_name_full	topotecan											
+drug_name_short	topo											
+composition	topo=1											
+seed_density	1e3 cells/well											
+assay_time	72											
+tray_notes	20 uL reagent/well											
+media	F12k medium, adjusted											
+drug_solvent	PBS											
+solvent_drug_ratio	NA											
+space												
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+resp	4389	3401	2659	2779	1997	1368	895	827	790	656	630	628
+resp	4455	5269	4082	3917	2161	1447	1222	866	817	668	623	629
+resp	4624	6125	5646	3467	2628	1312	1224	1106	862	673	630	644
+resp	3886	5542	5502	4195	2522	1453	1197	1069	894	660	625	626
+resp	4792	7667	7122	2919	1730	1764	1214	790	761	648	622	628
+resp	4514	5717	3674	5640	2807	1741	1145	938	751	652	628	618
+resp	.	.	.	.	.	.	.	.	.	.	.	.
+resp	626	624	618	622	619	618	.	.	.	.	.	.
+space					
+tray_label	vin_tr1											
+tray_replicate	replicate A											
+date	2005/10/29											
+cell_line	A549											
+drug_name_full	vincristine											
+drug_name_short	vin											
+composition	vin=1											
+seed_density	1e3 cells/well											
+assay_time	72											
+tray_notes	20 uL reagent/well											
+media	F12k medium, adjusted											
+drug_solvent	PBS											
+solvent_drug_ratio	NA											
+space												
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+resp	2123	1818	1948	1670	1126	950	904	925	905	903	927	934
+resp	1787	1718	1703	1542	1136	951	941	856	899	990	861	983
+resp	1944	1901	2167	2038	1237	1085	977	952	962	928	968	995
+resp	1878	2095	2381	2096	1421	1031	962	1059	999	1019	995	1001
+resp	1845	1729	1737	2148	1402	1055	989	1015	873	912	931	941
+resp	1974	1791	2255	2019	1186	1131	891	949	1060	952	920	936
+resp	.	.	.	.	.	.	.	.	.	.	.	.
+resp	609	609	609	608	611	613	.	.	.	.	.	.
+space												
+tray_label	vin_tr2											
+tray_replicate	replicate B											
+date	2005/10/29											
+cell_line	A549											
+drug_name_full	vincristine											
+drug_name_short	vin											
+composition	vin=1											
+seed_density	1e3 cells/well											
+assay_time	72											
+tray_notes	20 uL reagent/well											
+media	F12k medium, adjusted											
+drug_solvent	PBS											
+solvent_drug_ratio	NA											
+space												
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+resp	6272	6501	3514	4096	2862	1620	1272	1292	1192	1073	1312	1550
+resp	4681	5382	4025	4094	2821	1879	1301	1228	1195	1119	1294	1578
+resp	6012	4717	5686	4724	3416	1587	1346	1797	1608	1112	1605	1464
+resp	3793	6238	5038	6152	3388	1631	1691	1920	1698	1490	1517	1389
+resp	7312	5739	6603	6171	2837	2215	1485	1518	1665	1660	1373	1448
+resp	7495	4612	7031	6702	2268	1471	1314	1378	1514	1338	1241	1623
+resp	.	.	.	.	.	.	.	.	.	.	.	.
+resp	636	631	634	633	631	631	.	.	.	.	.	.
+space						
+tray_label	vin_tr3											
+tray_replicate	replicate C											
+date	2005/10/29											
+cell_line	A549											
+drug_name_full	vincristine											
+drug_name_short	vin											
+composition	vin=1											
+seed_density	1e3 cells/well											
+assay_time	72											
+tray_notes	20 uL reagent/well											
+media	F12k medium, adjusted											
+drug_solvent	PBS											
+solvent_drug_ratio	NA											
+space												
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+resp	4382	4396	3793	4633	1994	1616	1243	1088	1375	1165	1132	1338
+resp	4106	4653	4202	3468	1870	1557	1204	1256	1490	1170	1203	1314
+resp	4080	4492	3677	4687	2486	1539	1102	1378	1350	1515	1438	1297
+resp	4554	3141	3332	2246	1910	1530	1126	1202	1500	1427	1234	1336
+resp	5124	3946	3775	2312	2429	1417	1197	1505	1216	1293	1307	1195
+resp	4296	3334	3814	2916	1844	1294	936	1211	1372	1348	1115	1307
+resp	.	.	.	.	.	.	.	.	.	.	.	.
+resp	626	626	624	619	623	621	.	.	.	.	.	.
+space												
+tray_label	topo+vin_tr1											
+tray_replicate	replicate A											
+date	2005/10/29											
+cell_line	A549											
+drug_name_full	topotecan+vincristine											
+drug_name_short	mixture											
+composition	topo=.5	vin=.5										
+seed_density	1e3 cells/well											
+assay_time	72											
+tray_notes	20 uL reagent/well											
+media	F12k medium, adjusted											
+drug_solvent	PBS											
+solvent_drug_ratio	NA											
+space												
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+resp	2035	1838	1719	1593	1401	1064	847	802	746	705	628	625
+resp	2247	2070	1973	1729	1369	1001	907	752	833	682	635	621
+resp	2073	1835	2338	2148	1450	1098	1018	877	881	690	621	621
+resp	2124	2000	1765	1966	1525	1169	958	885	852	738	636	620
+resp	1880	1864	2204	2158	1308	1094	1006	861	834	699	632	614
+resp	2052	1626	1934	1868	1368	1025	960	779	791	681	624	616
+resp	.	.	.	.	.	.	.	.	.	.	.	.
+resp	622	622	624	621	621	621	.	.	.	.	.	.
+space												
+tray_label	topo+vin_tr2											
+tray_replicate	replicate B											
+date	2005/10/29											
+cell_line	A549											
+drug_name_full	topotecan+vincristine											
+drug_name_short	mixture											
+composition	topo=.5	vin=.5										
+seed_density	1e3 cells/well											
+assay_time	72											
+tray_notes	20 uL reagent/well											
+media	F12k medium, adjusted											
+drug_solvent	PBS											
+solvent_drug_ratio	NA											
+space												
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+resp	4419	3614	3521	2768	1673	1175	1059	880	806	703	639	634
+resp	4128	6172	4657	3270	3096	1415	1251	1066	845	730	637	631
+resp	5823	4831	3140	4133	2007	1513	1275	896	933	687	637	631
+resp	6004	6925	4628	5487	2077	1720	1436	1000	899	794	648	630
+resp	5428	2869	3081	4785	1899	1372	1215	962	831	721	635	635
+resp	4931	5148	3796	4859	1454	1592	1334	912	784	850	637	632
+resp	.	.	.	.	.	.	.	.	.	.	.	.
+resp	628	629	629	629	631	631	.	.	.	.	.	.
+space												
+tray_label	topo+vin_tr3											
+tray_replicate	replicate C											
+date	2005/10/29											
+cell_line	A549											
+drug_name_full	topotecan+vincristine											
+drug_name_short	mixture											
+composition	topo=.5	vin=.5										
+seed_density	1e3 cells/well											
+assay_time	72											
+tray_notes	20 uL reagent/well											
+media	F12k medium, adjusted											
+drug_solvent	PBS											
+solvent_drug_ratio	NA											
+space												
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0.00153	0.005	0.0153	0.05	0.153	0.5	1.53	5	15.3	50
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+conc	0	0	0	0	0	0	0	0	0	0	0	0
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx	rx
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+label	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt	bbt
+resp	4088	2779	2711	2884	1743	1295	908	844	830	701	643	631
+resp	4075	2847	3460	3548	1830	1445	1155	902	857	907	637	636
+resp	3719	3407	2775	3905	2490	2059	1355	1066	1090	772	633	622
+resp	3432	5102	5508	4624	2947	1722	1338	1213	959	768	645	628
+resp	4341	3176	4668	4834	2127	1968	1611	1183	939	699	630	635
+resp	4728	4272	3346	3296	2237	1684	1900	962	953	682	638	634
+resp	.	.	.	.	.	.	.	.	.	.	.	.
+resp	623	622	621	613	622	620	.	.	.	.	.	.
+space												
