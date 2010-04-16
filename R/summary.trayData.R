@@ -1,10 +1,10 @@
-`summarizeData` <-
-function(object) {
-  ## print summary of data frame
-
-  if ((!inherits(object, "trayData")) && (!inherits(object, "mixlowData"))) 
-    stop("use only with \"trayData\" or \"mixlowData\" objects")
+`summary.trayData` <-
+function(object, ...) {
+  ## summarize trayData object returned by the \code{readDataFile} function
   
+  if (!inherits(object, "trayData")) 
+    stop("use only with \"trayData\" objects")
+
   rawData = object$concentrationResponse
   drugRatios = object$drugRatios
 
@@ -14,9 +14,9 @@ function(object) {
   writeLines (paste("number of drugs = ", length(getDrugs(object)),sep=""))
   writeLines (paste("number of trays = ", length(getTrays(object)),sep=""))
   writeLines (paste("number of cell lines = ", length(getCellLines(object)),"\n",sep=""))
-  writeLines ("\n            Table of drug ratios")
+  writeLines ("\n  ====================== Drug Ratios ======================  ")
   print(object$drugRatios)
   writeLines(" ")
   
   }
-  
+

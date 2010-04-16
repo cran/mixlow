@@ -5,7 +5,7 @@ function(mbest, dat1, verbose)
   pred0 = mbest$fitted
   rcdrug = numeric(0)
   r2drug = numeric(0)
-  u = unique(dat1$drug)
+  u = as.vector(unique(dat1$drug))
   
   for (dr in u) {
     yhat = as.vector(predict(mbest)[dat1$drug==dr])
@@ -32,6 +32,7 @@ function(mbest, dat1, verbose)
     r2 = a^2
     r2drug = c(r2drug,r2)
     }
+  
   return (list(rcdrug=rcdrug, r2drug=r2drug))
   }
 

@@ -16,7 +16,7 @@ interaction indices to quantify drug synergism/antagonism.
 Package: \tab mixlow\cr
 Type: \tab Package\cr
 Version: \tab 0.02\cr
-Date: \tab 2009-12-01\cr
+Date: \tab 2010-4-8\cr
 License: \tab 	GPL-2\cr
 }
 Functions are generally called in this order: \code{readDataFile}, 
@@ -24,16 +24,16 @@ Functions are generally called in this order: \code{readDataFile},
 Plot functions are available to view results graphically.
 }
 \author{
-John Boik \email{jcboik@stanford.edu}
+John Boik \email{john.boik@newearthbiomed.org}
 }
 \references{
-Boik J.C., Newman R.A., Boik R.J. (2008) Quantifying 
-synergism/antagonism using nonlinear mixed-effects modeling: a 
-simulation study.  Statistics in Medicine 27(7), 1040-61
+  Boik J.C., Newman R.A., Boik R.J. (2008).
+  Quantifying Synergism/Antagonism Using Nonlinear Mixed-Effects Modeling:
+  A Simulation Study. \emph{Statistics in Medicine}, \bold{27}(7), 1040--1061
 
-Boik J.C. Narasimhan B. (2008, submitted) "Introducing the R Package 
-mixlow for Assessment of Drug Synergism/Antagonism"
-
+  Boik J.C., Narasimhan N. (2010).
+  An R Package for Assessing Drug Synergism/Antagonism.
+  \emph{Journal of Statistical Software}, \bold{34}(6), 1--18.
 }
 \examples{
 # trayData data object is obtained using the readDataFile function

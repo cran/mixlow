@@ -61,10 +61,17 @@ A list with the following named components:
 See \code{doNlme} for a description of gamma, psi, and u parameters.
 
 }
-\references{The model is described in Boik J.C., Newman R.A., Boik R.J.
-(2008) Quantifying synergism/antagonism using nonlinear mixed-effects 
-modeling: a simulation study.  Statistics in Medicine 27(7), 1040-61}
-\author{John Boik \email{jcboik@stanford.edu}}
+\references{
+  Boik J.C., Newman R.A., Boik R.J. (2008).
+  Quantifying Synergism/Antagonism Using Nonlinear Mixed-Effects Modeling:
+  A Simulation Study. \emph{Statistics in Medicine}, \bold{27}(7), 1040--1061
+
+  Boik J.C., Narasimhan N. (2010).
+  An R Package for Assessing Drug Synergism/Antagonism.
+  \emph{Journal of Statistical Software}, \bold{34}(6), 1--18.
+}
+
+\author{John Boik \email{john.boik@newearthbiomed.org}}
 
 \seealso{
     \code{\link{doNlme}}, \code{\link{plot.loeweData}}

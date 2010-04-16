@@ -36,7 +36,7 @@ All parameter values except lambda should be in log scale.
 A data frame containing NaN values for all parameter estimates. 
 }
 
-\author{John Boik \email{jcboik@stanford.edu}}
+\author{John Boik \email{john.boik@newearthbiomed.org}}
 
 \seealso{\code{\link{doNls}}}
 \examples{

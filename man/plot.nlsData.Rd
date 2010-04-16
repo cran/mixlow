@@ -31,7 +31,7 @@ concentration-response data and optical control data.
 None
 }
 
-\author{John Boik \email{jcboik@stanford.edu}}
+\author{John Boik \email{john.boik@newearthbiomed.org}}
 
 \seealso{
     \code{\link{doNls}, \link{plot.mixlowData}}

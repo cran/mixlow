@@ -44,11 +44,10 @@ A list of class \code{mixlowData} with the following components:
   \item{plottingData}{A list used by \code{plot.mixlowData} in plotting}
 }
 
-\author{John Boik \email{jcboik@stanford.edu}}
+\author{John Boik \email{john.boik@newearthbiomed.org}}
 
 \seealso{ 
-    \code{\link{readDataFile}}, \code{\link{plot.mixlowData}}, 
-    \code{\link{summarizeData}}
+    \code{\link{readDataFile}}, \code{\link{plot.mixlowData}}
 }
 \examples{
 # trayData data object is obtained using the readDataFile function

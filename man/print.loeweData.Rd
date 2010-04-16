@@ -11,8 +11,9 @@ Prints a loeweData object returned from the \code{doLoewe} function.
 
 \arguments{
     \item{x}{A loeweData object returned from the \code{doLoewe} function.}
-    \item{\dots}{Optional arguments passed to \code{print.default}; see
-   the documentation on that method function.}
+    \item{\dots}{Optional arguments passed to \code{print.default}, including 
+    \code{verbose}, a logical argument with default \code{TRUE}.  Verbose controls the
+    amount of output printed. }
 }
 \details{
 Prints a loeweData object returned from the \code{doLoewe} function.
@@ -21,7 +22,7 @@ Prints a loeweData object returned from the \code{doLoewe} function.
 None
 }
 
-\author{John Boik \email{jcboik@stanford.edu}}
+\author{John Boik \email{john.boik@newearthbiomed.org}}
 
 \examples{
 # loeweData data object is obtained using the doLoewe function

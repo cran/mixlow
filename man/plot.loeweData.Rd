@@ -32,7 +32,7 @@ commands.
 None
 }
 
-\author{John Boik \email{jcboik@stanford.edu}}
+\author{John Boik \email{john.boik@newearthbiomed.org}}
 
 \examples{
 # loeweData data object is obtained using the doLoewe function

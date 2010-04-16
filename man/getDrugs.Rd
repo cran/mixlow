@@ -29,7 +29,7 @@ A vector of strings indicating which drugs are contained in the input data
 object. 
 }
 
-\author{John Boik \email{jcboik@stanford.edu}}
+\author{John Boik \email{john.boik@newearthbiomed.org}}
 
 \seealso{
     \code{\link{getTrays}}, \code{\link{getCellLines}}

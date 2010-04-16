@@ -11,8 +11,9 @@ Prints a nlmeData object obtained from \code{doNlme} function
 %- maybe also 'usage' for other objects documented here.
 \arguments{
     \item{x}{A nlmeData object obtained from the \code{doNlme} function }
-    \item{\dots}{Optional arguments passed to \code{print.default}; see
-    the documentation on that method function.}
+    \item{\dots}{Optional arguments passed to \code{print.default}, including 
+    \code{verbose}, a logical argument with default \code{TRUE}.  Verbose controls the
+    amount of output printed. }
 }
 \details{
 Prints a nlmeData object obtained from \code{doNlme} function
@@ -21,7 +22,7 @@ Prints a nlmeData object obtained from \code{doNlme} function
 None
 }
 
-\author{John Boik \email{jcboik@stanford.edu}}
+\author{John Boik \email{john.boik@newearthbiomed.org}}
 
 \seealso{ 
     \code{\link{doNlme}}

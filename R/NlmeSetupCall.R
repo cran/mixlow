@@ -30,7 +30,7 @@ function(ord, paramList, dat1, method, varFunction, cell, analysis, verbose)
     if (verbose==TRUE) writeLines(paste("\n============ NLME analysis, using: ",chk," ============\n",sep=""))
     
     # make formula and adjust parameter and fixed-effects lists, and make list for starting values, all for no.lambda model
-    formu = as.formula(adj_resp ~ ifelse(conc>0, (exp(u)* 1/(1+(exp(log(conc)-p))^exp(g)) ), exp(u)  ))
+    formu = as.formula(adj_resp~ifelse(conc>0,(exp(u)*1/(1+(exp(log(conc)-p))^exp(g))),exp(u)))
     param2 = paramList
     param2$lambda = NULL
     starting = unlist(param2)
@@ -41,8 +41,7 @@ function(ord, paramList, dat1, method, varFunction, cell, analysis, verbose)
       starting = unlist(paramList)
       fixedEffects[[4]] <- as.formula(lambda~drg-1)
       if (length(ord) == 1) fixedEffects[[4]] <- as.formula(lambda~1)
-      formu = as.formula(adj_resp ~ ifelse(conc>0, ((1-lambda)*exp(u)* 1/(1+(exp(log(conc)-p))^exp(g)) + exp(u)*lambda), 
-        ((1-lambda)*exp(u) + exp(u)*lambda)  ))
+      formu = as.formula(adj_resp~ifelse(conc>0,((1-lambda)*exp(u)*1/(1+(exp(log(conc)-p))^exp(g))+exp(u)*lambda),((1-lambda)*exp(u)+exp(u)*lambda)))
       }
     
                                                   

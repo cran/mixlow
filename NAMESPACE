@@ -24,6 +24,11 @@ export(
   
   prepareData,
   readDataFile,
-  summarizeData)
+  summary.trayData,
+  summary.nlmeData,
+  summary.nlsData,
+  summary.mixlowData,
+  summary.loeweData 
+  )
 
 

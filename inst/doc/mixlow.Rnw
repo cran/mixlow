@@ -1,0 +1,935 @@
+\documentclass[article,nojss]{jss}
+\usepackage{rotating,nicefrac,amsmath}
+
+%% need no \usepackage{Sweave}
+
+%\VignetteIndexEntry{An R Package for Assessing Drug Synergism/Antagonism}
+%\VignetteDepends{mixlow}
+%\VignetteKeywords{synergism, antagonism, Loewe index, Mixlow method, cytotoxicity, R}
+%\VignettePackage{mixlow}
+
+
+\author{John C. Boik\\New Earth BioMed
+   \And Balasubramanian Narasimhan\\Stanford University}
+\Plainauthor{John C. Boik, Balasubramanian Narasimhan}
+
+\title{An \proglang{R} Package for Assessing Drug Synergism/Antagonism}
+\Plaintitle{An R Package for Assessing Drug Synergism/Antagonism}
+
+\Abstract{
+This introduction to the \proglang{R} package \pkg{mixlow} is a (slightly)
+modified version of \cite{Boik+Narasimhan:2010}, published in the
+\emph{Journal of Statistical Software}.
+
+Synergistic and antagonistic drug interactions are important to 
+consider when developing mixtures of anticancer or other types of drugs. 
+\cite{BNB08} proposed the MixLow method
+as an alternative to the Median-Effect method of \cite{CT84} for estimating drug interaction indices. One advantage of the
+MixLow method is that the nonlinear mixed-effects model used to estimate
+parameters of concentration-response curves can provide more accurate
+parameter estimates than the log linearization and least-squares analysis
+used in the Median-Effect method. This paper introduces the \pkg{mixlow}
+package in \proglang{R}, an implementation of the MixLow method. Results are
+reported for a small simulation study.
+}
+
+\Keywords{synergism, antagonism, Loewe index, Mixlow method, cytotoxicity, \proglang{R}}
+\Plainkeywords{synergism, antagonism, Loewe index, Mixlow method, cytotoxicity, R}
+
+\Address{
+  John C. Boik\\
+  New Earth BioMed\\
+  108 Rockview\\
+  Irvine, CA 92612, United States of America\\
+  E-mail: \email{john.boik@newearthbiomed.org}\\
+  URL: \url{http://www.newearthbiomed.org/}
+}
+
+\begin{document}
+
+\section{Introduction}
+
+In many branches of medicine, drugs are administered in the form of
+mixtures. In order to develop new and more effective mixtures it is
+useful to analytically assess, with respect to the mixture's intended
+effect, the interactions that occur within a mixture. Such drug interactions
+can be of an additive nature, or can be antagonistic or synergistic
+(sub-additive or supra-additive, respectively). The approaches used
+to assess drug interactions vary depending on the design of the experiment,
+the expected shape of the concentration-response curve, and other
+factors. For reviews see \cite{Ber89,GBP95,Mer94,Tal01}. The approach
+described here is applicable to the common in-vitro situation where within-unit
+and between-unit measurements are available, responses follow a sigmoidal
+pattern, and ratios between drugs in a mixture are fixed (that is,
+various dilutions of the mixture and its component drugs are tested).
+While such data could be generated in many types of experiments, the
+data discussed in this paper are obtained from in-vitro cytotoxicity
+experiments, where cancer cells are exposed to a drug for a specified
+length of time (typically 72 hours) and then cell viability is indirectly
+measured, usually via fluorescence readings after addition of a suitable
+dye. Such cytotoxicity assays use multi-well incubation trays, where
+each tray receives one drug or mixture, each column of the tray might
+receive a different drug concentration, and replicate trays are tested
+for each drug and mixture. Responses are typically modeled as a sigmoidal
+function of the drug concentration. 
+
+Several indices for assessing drug interactions have been proposed,
+but perhaps the most popular one is the Loewe index. The Loewe index
+for a mixture is a function of the mixture's concentration-response
+curve as well as the curves of its component drugs. Therefore, estimating
+the parameters of these curves is a first step in estimating the index.
+A common method to estimate both the curve parameters and the index
+is the Median-Effect method developed by \cite{CT84}.
+This method linearizes the sigmoidal response curve and then estimates concentration-response
+parameters using ordinary least squares regression. The interaction
+index is estimated based on regression results. The Median-Effect method
+has been criticized on several points, including the linearization step and the need for extensive preprocessing of data \cite{GBP95}. 
+Recently, \cite{BNB08} proposed the MixLow method, which is an improvement
+over the Median-Effect method. The MixLow method
+utilizes a nonlinear mixed-effects model to more accurately estimate
+concentration-response parameters. In addition, data preprocessing is minimal. 
+
+The three components of the MixLow method are a nonlinear mixed-effects
+model, the Loewe index, and a method to calculate confidence intervals
+for the index. See \cite{BNB08} for complete details. 
+In some applications it is not necessary to estimate a Loewe index
+and only curve parameter estimates are desired (IC50 values, for example).
+In such cases, estimation of the Loewe index can be omitted.  Note that 
+the \proglang{R} package \pkg{drm} by \cite{RS:2005} also analyzes concentration-response data, but does not use a mixed-effects model to do so.
+
+Concentration-effect data are modeled using a sigmoidal function. The 
+utility of the sigmoidal function stems from its simplicity (as few as 
+two parameters) and its empirical usefulness in modelling cytotoxicity data. 
+For these reasons, sigmoidal functions are often used for modelling cytotoxicity 
+data. The MixLow method is novel in its use of a nonlinear mixed-effects
+model for estimating sigmoidal curve parameters from concentration-response data, 
+for the purpose of estimating drug interaction indices and associated confidence intervals. 
+
+This paper describes the \pkg{mixlow} package, an implementation of the
+MixLow method in \proglang{R} \citep{R}. An overview of the mathematical model is given, components
+of the package are summarized, and results from a small simulation
+study are reported.  The package is available from the Comprehensive \proglang{R} Archive Network at
+   \url{http://CRAN.R-project.org/package=mixlow}.
+
+
+
+
+\section{MixLow method}
+
+Let the random variable $\mathit{fa}$ signify the fraction of cells
+affected by a drug concentration, and define $\phi=\mathrm{E}[\mathit{fa}]$.
+In some contexts, $\phi$ is estimated based on the data and in other
+contexts a concentration is estimated that produces a fixed value
+of $\phi$. Denote the $\phi$-effective log concentration of drug
+$d$ by $\psi_{d,\phi}$. This is the concentration that produces
+a fraction affected equal to a fixed $\phi$. For example, $\exp(\psi_{d,0.2})$
+is the concentration that inhibits proliferation of a population by
+20 percent. By convention, this is referred to as the IC20. 
+
+
+\subsection{Basic MixLow model}
+
+The MixLow method utilizes a nonlinear mixed-effects model to estimate
+parameters of the sigmoidal concentration-response curve. Responses
+$\left\{ Y_{d,t,w}\right\} $ are
+modeled as:
+
+\begin{equation}
+Y_{d,t,w}=\exp(\mu+b_{t})\,(1-\phi_{d,w,t})+\epsilon_{d,t,w}\,,\label{eq:ML}\end{equation}
+
+
+where
+
+\begin{equation}
+\phi_{d,t,w}=1-\frac{1}{1+\left(\frac{\exp(c_{d,t,w})}{\exp(\psi_{d,0.5})}\right)^{\gamma_{d}}}\,,\label{eq:phi}\end{equation}
+
+
+and the subscripts $d,t,w$ refer to the $d$-th drug, $t$-th tray,
+and $w$-th well. In addition, $\gamma_{d}$ indexes the steepness
+of the curve for drug $d$ at the IC50, and $c_{d,t,w}$ is the log
+concentration of drug $d$ in well $w$ and tray $t$. Here drug $d$
+could refer to a specific mixture or could refer to a component drug.
+Model (\ref{eq:ML}) can be used to estimate parameters for single
+drugs or a mixture, or can be used to estimate parameters simultaneously
+for all component drugs and the mixture. For treatment control wells (those
+that receive media, cells, and a drug concentration of zero), $\phi_{d,t,w}=0$.
+For other wells, $0<\phi_{d,t,w}<1$. The expected value of $\exp(\mu+b_{t})$
+refers to the expected mean response of control wells over all trays
+assessed, where $b_{t}$ is a random deviate specific to tray $t$
+(i.e., a ``tray'' effect). Values $\left\{ b_{t}\right\} $
+are independently distributed as $b_{t}\sim\mathrm{N}(0,\sigma_{b}^{2}).$
+The error terms are independently distributed as $\epsilon_{d,t,w}\sim\mathrm{N}(0,f(\cdot)),$
+where $f(\cdot)$ is a function discussed later. 
+
+The Loewe index for a mixture of $n$ drugs is given by:
+
+\begin{equation}
+L_{\phi}=\sum_{d=1}^{n}\frac{\exp(m_{d,\phi})}{\exp(\psi_{d,\phi})}=\sum_{d=1}^{n}\tau_{d}\frac{\exp(\psi_{m,\phi})}{\exp(\psi_{d,\phi})}\,,\label{eq:loewe}\end{equation}
+
+
+where $m_{d,\phi}$ is an unknown constant signifying the log concentration
+of drug $d$ in the mixture when the mixture is at its $\phi$-effective
+log concentration, $\tau_{d}$ is the fraction of the mixture composed
+of drug $d$, and $\psi_{m,\phi}$ is the $\phi$-effective log concentration
+of the mixture. The mixture is synergistic if $L_{\phi}<1$, it is
+additive if $L_{\phi}=1$, and it is antagonistic if $L_{\phi}>1$.
+Estimate $\hat{L}_{\phi}$ is obtained by using estimates $\hat{\psi}_{m,\phi}$
+and $\hat{\psi}_{d,\phi}$ in Equation (\ref{eq:loewe}). To obtain
+expressions for $\hat{\psi}_{m,\phi}$ and $\hat{\psi}_{d,\phi}$,
+note that if $c_{d,t,w}$ in (\ref{eq:phi}) is equated to $\hat{\psi}_{d,\phi}$,
+then $\hat{\phi}_{d,t,w}$ becomes $\phi$. That is, 
+
+\begin{equation}
+\phi=1-\frac{1}{1+\left(\frac{\exp(\hat{\psi}_{d,\phi})}{\exp(\hat{\psi}_{d,0.5})}\right)^{\hat{\gamma}_{d}}}\,.\label{eq:phi_hat}\end{equation}
+
+
+To write the Loewe index as an explicit function of $\hat{\psi}_{d,\phi}$,
+first solve (\ref{eq:phi_hat}) for $\hat{\psi}_{d,\phi}$ to obtain
+
+\begin{equation}
+\hat{\psi}_{d,\phi}=\log\left(\left(\frac{\phi}{1-\phi}\right)^{\frac{1}{\hat{\gamma}_{d}}}\right)+\hat{\psi}_{d,0.5}\,.\label{eq:psi_hat}\end{equation}
+
+
+Using (\ref{eq:loewe}) and (\ref{eq:psi_hat}), the estimator of
+the index is given by
+
+\begin{equation}
+\hat{L}_{\phi}=\sum_{d=1}^{n}\tau_{d}\frac{\exp\left(\log\left(\left(\frac{\phi}{1-\phi}\right)^{\frac{1}{\hat{\gamma}_{m}}}\right)+\hat{\psi}_{m,0.5}\right)}{\exp\left(\log\left(\left(\frac{\phi}{1-\phi}\right)^{\frac{1}{\hat{\gamma}_{d}}}\right)+\hat{\psi}_{d,0.5}\right)}\,.\label{eq:Loewe estimate}\end{equation}
+
+
+Confidence intervals based on $\mathrm{SE}\left(\log(\hat{L}_{\phi})\right)$
+are obtained using the Delta method as follows:
+
+\begin{equation}
+\mathrm{SE}\left(\log(\hat{L}_{\phi})\right)\approx\left(\left(\begin{array}{c}
+\frac{\partial\log(\hat{L}_{\phi})}{\partial\hat{\boldsymbol{\psi}}}\\
+\frac{\partial\log(\hat{L}_{\phi})}{\partial\hat{\boldsymbol{\gamma}}}\end{array}\right)^\top\hat{\mathrm{var}}\left(\begin{array}{c}
+\hat{\boldsymbol{\psi}}\\
+\hat{\boldsymbol{\gamma}}\end{array}\right)\left(\begin{array}{c}
+\frac{\partial\log(\hat{L}_{\phi})}{\partial\hat{\boldsymbol{\psi}}}\\
+\frac{\partial\log(\hat{L}_{\phi})}{\partial\hat{\boldsymbol{\gamma}}}\end{array}\right)\right)^{\frac{1}{2}}\,,\label{eq:SE}\end{equation}
+
+
+where the superscript $\top$ refers to transpose. The term $\hat{\mathrm{var}}\left(\begin{array}{c}
+\hat{\boldsymbol{\psi}}\\
+\hat{\boldsymbol{\gamma}}\end{array}\right)$ is obtained from the observed information matrix, which is produced
+when Model (\ref{eq:ML}) is fit by maximizing the likelihood function.
+The confidence interval for $\hat{L}_{\phi}$ is
+
+\begin{equation}
+\exp\left(\log(\hat{L}_{\phi})\pm t_{df,1-\frac{\alpha}{2}}\mathrm{SE}\left(\log(\hat{L}_{\phi})\right)\right)\,,\label{eq:CI}\end{equation}
+
+
+where $t_{df,1-\frac{\alpha}{2}}$ is a multiplier obtained from the
+$t$ distribution with $df$ degrees of freedom and $\alpha$ significance
+level.
+
+Equation (\ref{eq:CI}) is a piecewise confidence interval. In a typical linear regression setting, a simultaneous interval can be constructed
+using the Working-Hotelling procedure. If directly applied to the Loewe index, the Working-Hotelling interval would be
+
+\begin{equation}
+\mathrm{exp}\left(\mathrm{log}(\hat{L}_{\phi})\pm \sqrt{(p)F_{.95,p,df}}\mathrm{SE}\left(\log(\hat{L}_{\phi})\right)\right)\,,\label{eq:WH}\end{equation}
+
+where $p$ is the number of parameters used to construct the interval and $df$ is the degrees of freedom. The interval (\ref{eq:WH}) has unknown
+properties, however. Model (\ref{eq:ML}) is nonlinear and contains random effects. The standard error is obtained at $\phi$ using a first-order approximation to a linear model. Nevertheless, we can use the Working-Hotelling procedure to obtain a rough estimate of the difference in widths between the pointwise and continuous intervals. In a typical two-drug experiment, the interval will be based on six parameters ($\psi$ and $\gamma$ for each drug and the mixture). With three replicate 96-well trays per drug (see discussion below), the degrees of freedom will be roughly 540. Therefore, the multiplier in the continuous 95 percent interval will be larger than that in the piecewise interval by a factor of roughly
+
+\begin{equation}
+\frac{\sqrt{(p)F_{0.95,p,df}}}{t_{df,0.975}}\,,\label{eq:CIratio}\end{equation}
+or about 1.81.     
+ 
+
+\subsection{Modified MixLow model}
+
+In some data sets, responses follow a sigmoidal curve but the curve
+appears to have a non-zero asymptote. An example is illustrated in
+Figure~\ref{F1}. The solid curve in the figure is the sum of the dotted sigmoidal
+curve and the offset from zero. This type of pattern can be modeled
+by altering Model (\ref{eq:ML}) to the following:
+
+%
+\begin{figure}[t!]
+\begin{center}
+\includegraphics[width=10cm]{nonzeroAsymptote}
+\caption{\label{F1} Example concentration-response curve with non-zero asymptote.}
+\end{center}
+\end{figure}
+
+\begin{equation}
+Y_{d,t,w}=(1-\lambda_{d})\exp(\mu+b_{t})\,(1-\phi'_{d,w,t})+\lambda_{d}\exp(\mu+b_{t})+\epsilon_{d,t,w}\,,\label{eq:ML2}\end{equation}
+
+
+where
+
+\begin{equation}
+\phi'_{d,w,t}=1-\frac{1}{1+\left(\frac{\exp(c_{d,t,w})}{\exp(\psi'_{d,0.5})}\right)^{\gamma'_{d}}}\,.\label{eq:phi2}\end{equation}
+
+
+Here, $0\leq\lambda_{d}\leq0.5$ is a drug-dependent weight, and $\phi'$, $\psi'$, and $\gamma'$ all refer to the sigmoidal 
+curve with zero asymptote. When $\lambda_{d}=0$,
+Model (\ref{eq:ML2}) collapses to Model (\ref{eq:ML}). To write
+the Loewe index as a function of $\phi$, $\hat{\psi'}_{d,0.5}$,
+and $\hat{\gamma'}_{d}$, an expression for $\hat{\psi'}_{d,\phi}$
+is obtained in a manner similar to (\ref{eq:psi_hat}). Specifically, 
+
+\begin{equation}
+\hat{\psi}_{d,\phi}=\log\left(\left(\frac{\phi}{1-\phi-\lambda}\right)^{\frac{1}{\hat{\gamma'}_{d}}}\right)+\hat{\psi'}_{d,0.5}\,.\label{eq:psi_hat2}\end{equation}
+
+
+Using Model (\ref{eq:ML2}), and without additional assumptions, the Loewe index can only be estimated 
+for $\phi<1-\underset{d}{\max}(\lambda_{d})$.  This is because $(1-\phi)$ is not defined for values below $\underset{d}{\max}(\lambda_{d})$ for all drugs.
+
+In Figure~\ref{F1}, the maximal response (\textbf{$\mathrm{E}[\exp(\mu\left|b_{t}\right.)]$})
+is 900, the half-maximal response (at concentration \textbf{$\psi_{0.5}$})
+is 450, and the asymptote occurs at a response of 100. The total response
+(solid curve) is equal to the asymptotic response plus the sigmoidal
+response (dotted curve). The half-maximal response of the dotted curve
+is 400, which occurs at a concentration \textbf{$\psi'_{0.5}$.}
+
+
+
+
+
+\section[Summary of the mixlow package]{Summary of the \pkg{mixlow} package}
+
+The \pkg{mixlow} package contains ten functions, listed in Table~\ref{T1} and
+ordered by chronological use. In addition, there are \code{plot}, \code{print}, and \code{summary} methods for objects 
+\code{trayData}, \code{mixlowData}, \code{nlsData}, \code{nlmeData}, and/or \code{loeweData}. 
+Detailed information on the functions is available via the help commands in \proglang{R}. A summary of their use and
+actions is provided below. To use the \pkg{mixlow} package, the following
+six steps are performed in sequence:
+
+%
+\begin{table}[b!]
+\noindent \begin{centering}
+\begin{tabular}{|p{0.45\textwidth}|p{0.45\textwidth}|}
+\hline 
+Function & Purpose\tabularnewline
+\hline
+\code{trayData <- readDataFile(filename)} & reads data from file\tabularnewline
+\hline 
+\code{mixlowData <- prepareData(trayData)} & prepare raw data\tabularnewline
+\hline 
+\code{cellLines <- getCellLines(mixlowData)} & get a vector of cell line names\tabularnewline
+\hline 
+\code{drugs <- getDrugs(mixlowData)} & get a vector of drug names\tabularnewline
+\hline 
+\code{trays <- getTrays(mixlowData)} & get a vector of tray names\tabularnewline
+\hline 
+\code{parameterDefaults <- getNlsParameterDefaults(trays)} & make data frame of parameter default values for NLS\tabularnewline
+\hline 
+\code{nlsData <- doNls(mixlowData, parameterDefaults)} & run nonlinear least-squares (NLS) model\tabularnewline
+\hline 
+\code{NlmePrintVarFunctions()} & print variance function options for nonlinear mixed-effects (NLME)
+model\tabularnewline
+\hline 
+\code{nlmeData <- doNlme(mixlowData, nlsData)} & run NLME model\tabularnewline
+\hline 
+\code{loeweData <- doLoewe(mixlowData, nlmeData)} & run Loewe analysis\tabularnewline
+\hline
+\end{tabular}
+\par\end{centering}
+
+\caption{Functions in the \pkg{mixlow} package in order of use.}
+\label{T1}
+\end{table}
+
+\begin{enumerate}
+\item Design the experiment, collect the data, and prepare the data file.
+\item Read the data file using the function \code{readDataFile}.  
+\item Prepare and subset the data using the function \code{prepareData}.
+\item Obtain starting values for the fixed-effects parameters of the nonlinear
+mixed-effects (NLME) model by using nonlinear least squares (NLS)
+analysis. This is done using the function \code{doNls}. 
+\item Use the NLS parameters as starting values for the NLME model. The
+mixed-effects model is estimated using the function \code{doNlme}.
+\item Use the NLME parameters to estimate the Loewe index. This is done
+using the function \code{doLoewe}.  
+\end{enumerate}
+
+
+\subsection{Experimental design and preparation of the data file}
+
+The appropriate experimental design for use with the \pkg{mixlow} package
+is the ``ray'' design, which has the following two
+characteristics:
+
+\begin{itemize}
+\item all drugs are tested individually at a variety of concentrations
+\item a mixture is made of two or more drugs and this mixture is tested
+at a variety of concentrations.
+\end{itemize}
+
+As a result, ratios between component drugs of a mixture are constant
+over all concentrations tested. The MixLow method will not work for
+checkerboard designs where ratios between drugs in a mixture vary.
+Each tray should test only one drug or one mixture, and each drug
+or mixture should be tested in replicate trays. 
+
+In a typical synergism experiment, two drugs and their mixture might be 
+tested, although the MixLow model can be used on larger mixtures. Three 
+replicate trays might be used for each drug and the mixture, 
+or nine trays in total. Within each tray, 12 of the wells might be 
+\emph{treatment-control wells} that receive cells and media but no drug, 
+and 60 might be \emph{treatment wells} that receive drug, media, and cells. Ten
+different concentrations of the drug might be tested in the treatment wells 
+(6 wells per concentration). Lastly, 24 of wells might be 
+\emph{optical control wells} (called \emph{blanks} 
+here for convenience). These can be of two types: 
+
+\begin{itemize}
+\item Type \code{bbt}: optical control wells contain only media
+\item Type \code{bbc}: optical control wells contain media plus drug, and
+each drug concentration tested in treatment wells is also tested in
+optical control wells.
+\end{itemize}
+
+The first type is referred to here as \code{bbt}, or blanks-by-tray,
+and the second type is referred to as \code{bbc}, or blanks-by-concentration.
+The use of blanks-by-concentration is recommended when drugs can induce
+concentration-dependent responses (e.g., autofluorescence). For blanks-by-tray,
+treatment- and treatment-control-well responses are adjusted by subtracting
+the mean response of all \code{bbt} wells in a tray. For blanks-by-concentration,
+a 1st to 4th degree polynomial is fit to the \code{bbc} responses and predicted
+values for each concentration are subtracted from treatment- and treatment-control-well
+responses. 
+
+The only preprocessing of data used in the Mixlow method is subtraction of an optical 
+correction factor for each well based on \code{bbt} or \code{bbc} responses.  
+Relative to the variance of treatment-well responses at each drug
+concentration, the variance of optical control well responses is typically
+very small. Therefore, only a few \code{bbt} wells are needed per tray, or a 
+few \code{bbc} wells are needed per concentration.  Because of the low variance, use of 
+optical correction factors is not likely to introduce significant uncertainty into the model. 
+
+In many cytotoxicity experiments,
+a reasonable arrangement for a 96-well tray is to use the last two
+rows of every column as \code{bbc} wells, use the first six rows of
+the first two columns as treatment-control wells, and use the first
+six rows of the third to twelfth columns as treatment wells, with
+each column receiving a different drug concentration. This layout
+is shown in Table~\ref{T2}. In the table, \code{rx} signifies treatment wells
+and \code{rx{*}} signifies treatment-control wells. If there is a drug-response pattern in plates that is not related to drug concentration (e.g., responses in the center wells are different from responses in the peripheral wells), then a randomized concentration assignment should be employed. 
+
+%
+\begin{table}
+\noindent \begin{centering}
+\begin{tabular}{|c||c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline 
+ & C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8 & C9 & C10 & C11 & C12\tabularnewline
+\hline 
+R1 & \code{rx{*}} & \code{rx{*}} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx}\tabularnewline
+\hline 
+R2 & \code{rx{*}} & \code{rx{*}} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx}\tabularnewline
+\hline 
+R3 & \code{rx{*}} & \code{rx{*}} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx}\tabularnewline
+\hline 
+R4 & \code{rx{*}} & \code{rx{*}} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx}\tabularnewline
+\hline 
+R5 & \code{rx{*}} & \code{rx{*}} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx}\tabularnewline
+\hline 
+R6 & \code{rx{*}} & \code{rx{*}} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx} & \code{rx}\tabularnewline
+\hline 
+R7 & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} \tabularnewline
+\hline 
+R8 & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} & \code{bbc} \tabularnewline
+\hline
+\end{tabular}
+\par\end{centering}
+
+\caption{Example layout for 96-well plate.}
+
+\label{T2}
+\end{table}
+
+
+To use the \code{readDataFile} function, data must be stored in a
+specially formatted ASCII file. An industry standard XML format for
+cytotoxicity data has not yet been developed, and the interim format
+described here was designed to facilitate cut-and-paste operations
+from plate reader data displayed in spreadsheet format. If a XML standard
+format is developed in the future, then the package can be modified
+to take advantage of this. Two sample data files are included with the package and can
+be used as templates for constructing new data files, as well as
+for testing out the capabilities of the program. One of these files contains
+simulated data, and one contains data from a synergism experiment described in \cite{BNB08}.
+
+The data file can be created in a spreadsheet (in which case it must
+be saved in tab-delimited plain text format without automatic enclosing
+quotations). Row labels (the first column in a data file if a spreadsheet is used) are required, and
+the order of row labels must not change from that given in the sample
+files. The required layout for the first three columns is shown in
+Table~\ref{T3}. The first eight row labels (up to and including \code{col}) occur only once. Other
+row labels are repeated for each tray. To conserve space, only three
+rows and two columns are shown for the \code{conc}, \code{label},
+and \code{resp} entries. Entries for the following labels are
+optional, but all row labels, including the \code{space} labels, must
+still be present: \code{global\_notes}, \code{name}, \code{Institution}, \code{email},
+\code{assay}, \code{date}, \code{drug\_name\_full}, \code{seed\_density},
+\code{assay\_time}, \code{tray\_notes}, \code{media}, \code{drug\_solvent}, 
+\code{solvent\_drug\_ratio}. 
+
+%
+\begin{table}[t!]
+\noindent \begin{centering}
+\begin{tabular}{|l|l|l|}
+\hline 
+Column 1 & Column 2 & Column 3\tabularnewline
+\hline 
+\code{global\_notes} & general notes about the experiment & \tabularnewline
+\hline 
+\code{name} & users name & \tabularnewline
+\hline 
+\code{Institution} & users institution & \tabularnewline
+\hline 
+\code{email} & users e-mail & \tabularnewline
+\hline 
+\code{assay} & the type of assay used & \tabularnewline
+\hline 
+\code{conc\_units} & the units for the response & \tabularnewline
+\hline 
+\code{rows} & the number rows/tray & \tabularnewline
+\hline 
+\code{cols} & the number of columns/tray & \tabularnewline
+\hline 
+\code{space} &  & \tabularnewline
+\hline 
+\code{tray\_label} & the label for the first tray & \tabularnewline
+\hline 
+\code{tray\_replicate} & an identifier for the replicate number & \tabularnewline
+\hline 
+\code{date} & date for this tray & \tabularnewline
+\hline 
+\code{cell\_line} & cell line for this tray & \tabularnewline
+\hline 
+\code{drug\_name\_full} & complete drug name & \tabularnewline
+\hline 
+\code{drug\_name\_short} & abbreviated drug name & \tabularnewline
+\hline 
+\code{composition} & e.g., \code{drug_1 = 0.4} & e.g., \code{drug_2 = 0.6}\tabularnewline
+\hline 
+\code{seed\_density} & seeding density for well in this tray & \tabularnewline
+\hline 
+\code{assay\_time} & length of incubation time & \tabularnewline
+\hline 
+\code{tray\_notes} & any other notes on this tray & \tabularnewline
+\hline 
+\code{media} & type of media used & \tabularnewline
+\hline 
+\code{drug\_solvent} & solvent used (DMSO, for example) & \tabularnewline
+\hline 
+\code{solvent\_drug\_ratio} & ratio of solvent to drug & \tabularnewline
+\hline 
+\code{space} &  & \tabularnewline
+\hline 
+\code{conc} & drug conc.\ in row 1, col 1 & drug conc.\ in row 1, col 2\tabularnewline
+\hline 
+\code{conc} & drug conc.\ in row 2, col 1 & drug conc.\ in row 2, col 2\tabularnewline
+\hline 
+\code{conc} & drug conc.\ in row 3, col 1 & drug conc.\ in row 3, col 2\tabularnewline
+\hline 
+\code{label} & label for row 1, col 1 & label for row 1, col 2\tabularnewline
+\hline 
+\code{label} & label for row 2, col 1 & label for row 2, col 2\tabularnewline
+\hline 
+\code{label} & label for row 3, col 1 & label for row 3, col 2\tabularnewline
+\hline 
+\code{resp} & response in row 1, col 1 & response in row 1, col 2\tabularnewline
+\hline 
+\code{resp} & response in row 2, col 1 & response in row 2, col 2\tabularnewline
+\hline 
+\code{resp} & response in row 3, col 1 & response in row 3, col 2\tabularnewline
+\hline
+\end{tabular}
+\par\end{centering}
+
+\caption{Layout of the data file.}
+
+\label{T3}
+\end{table}
+
+
+
+The first eight rows contain general information about the experiments
+and the remainder of the file occurs in blocks, one block for each
+tray. Entries for \code{tray\_label} and \code{drug\_name\_short}
+should contain only digits, letters, and the underscore character.
+The \code{drug\_name\_short} entry should consist of a unique, abbreviated
+drug name containing no more than 20 characters. This will be the
+drug name that appears in plots and in text output. The \code{composition}
+entry specifies the fraction of each drug in a mixture. For each drug,
+a string such as ``\code{drug_A = 0.5}'' must be given (for
+a hypothetical \code{drug_A}). The values provided should sum to 1.0 over
+all drugs, so if a single drug is tested in a tray the string would look
+like ``\code{drug_A = 1}''. The \code{conc} entries specify
+the drug concentration in each well and the \code{label} entries specify
+the type of well (\code{rx} for treatment, \code{bbt}
+or \code{bbc} for blanks). Treatment-control wells are
+also given the label \code{rx}. The \code{resp} entries
+specify the responses measured in each well.
+
+The user does not need to manually alter the raw data in any way. The only exception is when
+there is good reason to believe that data from certain wells in a
+tray are anomalies. In this case the responses for these wells can
+be replaced by periods (``\code{.}'') in the \code{resp} entries of the data file, which
+will cause these wells to be ignored. If desired, the \code{excludeWells}
+argument of the \code{readDataFile} function can be used to exclude
+a list of wells from all trays. The row and column of each cell to be excluded need to be specified in the excludeWell list.    
+
+
+\subsection{Generating starting values for fixed-effects parameters}
+
+Once a file is read using the \code{readDataFile} function, and data
+are subset and prepared using the \code{prepareData} function, the
+next step is to generate rough estimates of concentration-response
+curve parameters ($\mu$, $\psi_{d,0.5}$, $\log\,\gamma_{d}$, and
+$\lambda_{d}$). These rough estimates will be used as starting values for fixed effects parameters in the nonlinear mixed-effects model. The estimates
+are generated using the \code{doNls} function, which is a wrapper
+for \proglang{R}'s \code{nls} function. The \code{doNls} function also produces
+output that can be plotted, and these plots can be useful for understanding
+the data and estimating parameter values graphically. An \code{nls} analysis
+is performed separately on each tray. 
+
+By default, only Model (\ref{eq:ML}) is estimated. If the user provides
+a starting value for $\lambda_{d}$, then Model (\ref{eq:ML2}) will
+also be estimated. If Model (\ref{eq:ML2}) is estimated, the results
+for Model (\ref{eq:ML}) will be compared to those for Model (\ref{eq:ML2})
+and the one that produced the lowest BIC score will automatically
+be selected. If Model (\ref{eq:ML2}) is estimated, the user can specify
+a threshold value (lower bound) for $\lambda_{d}$. If the \code{nls}
+function estimates a value for $\lambda_{d}$ that is below this threshold,
+Model (\ref{eq:ML}) will be selected. Final parameter estimates are
+obtained from the selected model.
+
+The \code{nls} function requires starting values. As a convenience,
+the \code{getNlsParameterDefaults} function can be used to generate
+a data frame of parameter defaults for each drug. Parameter values
+of \code{NaN} indicate the following default values will be used: 
+
+\begin{itemize}
+\item $\psi_{d,0.5}$ will be set at the closest tested log concentration
+corresponding to $\nicefrac{1}{2}$ the mean of control wells
+\item std($\psi_{d,0.5}$) will be set at the absolute value of $\nicefrac{\psi_{d,0.5}}{2}$
+\item $\log(\gamma_{d})$ will be set to zero
+\item $\textrm{std}(\textrm{log}(\gamma_{d})$ will be set to one
+\item $\mu$ will be set to the log of the mean of all control wells
+\item $\lambda_{d}$ will be set to \code{NaN}, which indicates that a lambda term
+will not be used. If a lambda term is used, its value should be set
+between zero and 0.5. 
+\end{itemize}
+
+In order to increase the chance of model convergence, the \code{doNls}
+function will sample $\psi_{d,0.5}$ and $\gamma_{d}$ starting values
+from a normal distribution with mean and standard deviation equal
+to the user-supplied or default-generated values. The user can specify
+the number of random samples (\code{numRandomTries}) to draw. After
+fitting, the models are ranked by BIC scores.
+The starting values for the top few models are averaged and used as
+starting values for a final model. 
+
+If \code{verbose} is set equal to TRUE, information on the various models
+constructed will be printed, including a summary table that contains
+estimates for $\gamma_{d}$, $\psi_{d,0.5}$, $\mu$, and $\lambda_{d}$.
+These parameters are noted as g\emph{1}, p\emph{1}, u\emph{1}, and
+\emph{lambda} in the printout, respectively. (Values for $\lambda_{d}$
+will be included only if a $\lambda$-model was estimated). Parameters
+$\gamma_{d}$, $\psi_{d,0.5}$, and $\mu$ are in log scale. The \code{print} and 
+\code{summary} methods for the data objects returned from the \code{prepareData}, 
+\code{doNls}, \code{doNlme}, and \code{doLoewe} functions can also be used to examine the results.  
+
+
+\subsection{Running the mixed-effects model}
+
+The function \code{doNlme} reads output from the NLS model and runs
+the NLME model. The \code{doNlme} function is a convenience wrapper
+for the \code{nlme} function from the \code{nlme} package \cite{PBD09}. 
+The user supplies an \code{analysis} argument, which can be either 
+\code{single} or \code{multiple}. If \code{single}, each drug will be analyzed
+separately. If \code{multiple}, all drugs will be analyzed together. The
+user must also specify the variance function to be used from the list
+given in Table~\ref{T4}. If analysis is \code{multiple}, the user can specify 
+more than one variance function in the form of a vector, in which case one model will be estimated
+for each variance function and the best model will be identified using
+the BIC criterion. If analysis is \code{single}, the user must provide a list, 
+named by drug, which specifies the vector of variance functions to be used for 
+each drug.  For a given drug, if more than one variance function
+is specified, one model will be estimated for each variance function and the best 
+model will be identified using the BIC criterion. For heteroscedastic errors, variance function
+\code{3} (multiple drugs) or \code{2} (single drugs) may be appropriate in many
+cases. Simpler error functions could be tried if these do not allow
+convergence. 
+
+
+%
+\begin{table}
+\noindent \begin{centering}
+\begin{tabular}{|c|c|p{7.2cm}|}
+\hline 
+Variance Function & Analysis Type & $\epsilon_{d,t,w}\sim N(o,\sigma_{d,t,w}^{2})$, where $\sigma_{d,t,w}$
+equals: \tabularnewline
+\hline 
+\code{1} & \code{multiple} & $\sigma$\tabularnewline
+\hline 
+\code{2} & \code{multiple} & $\sigma\alpha_{d}$, where parameter $\alpha_{d}$ is drug dependent\tabularnewline
+\hline 
+\code{3} & \code{multiple} & $\sigma E[Y_{d,t,w}\left|b_{t}\right.]$\tabularnewline
+\hline 
+\code{4} & \code{multiple} & $\sigma E[Y_{d,t,w}\left|b_{t}\right.]^{\beta_{d}}$, where parameter
+$\beta_{d}$ is drug dependent\tabularnewline
+\hline 
+\code{1} & \code{single} & $\sigma$\tabularnewline
+\hline 
+\code{2} & \code{single} & $\sigma E[Y_{d,t,w}\left|b_{t}\right.]$\tabularnewline
+\hline 
+\code{3} & \code{single} & $\sigma E[Y_{d,t,w}\left|b_{t}\right.]^{\beta}$\tabularnewline
+\hline 
+\code{4} & \code{single} & $\sigma\left(\beta+E[Y_{d,t,w}\left|b_{t}\right.]\right)$\tabularnewline
+\hline
+\end{tabular}
+\par\end{centering}
+
+\caption{Variance functions for use with the \code{doNlme} function.}
+
+\label{T4}
+
+\end{table}
+
+
+As with the \code{doNls} function, if the verbose argument is set
+equal to TRUE, information on the models constructed will be printed.
+Parameter values and standard errors are printed, along with other
+information. The \code{rc} values given at the bottom of the summary for
+each set of drugs is a goodness-of-fit statistic similar to the $r^{2}$-statistic
+\citep[it is the average model concordance correlation][]{VCP96}. 
+
+Lastly, for testing purposes, if only one tray of data is available for a drug, the function
+will duplicate concentrations and responses in that tray to make two
+(equivalent) replicates so that analysis can be completed. This can be used, for example, to obtain 
+rough IC50 estimates when only one tray is available.   
+
+
+\subsection{Loewe analysis}
+
+After parameter estimates for the concentration-response curves have
+been made by the \code{doNlme} function, these can be passed to the
+\code{doLoewe} function so that Loewe indices can be estimated. The
+primary result from the Loewe analysis is a data frame of fraction
+affected values and their corresponding Loewe index estimates. Standard
+errors and upper and lower confidence limits for the index at each
+fraction affected value are also produced. By default, fraction affected
+values range from 0.02 to 0.98 (in steps of 0.01). 
+
+The output of the \code{doLoewe} function also includes a measure
+of the degree of statistically significant synergism and antagonism
+at each fraction affected value. For synergism, this value is zero
+at any fraction affected value where the upper confidence interval
+limit is greater than one. Otherwise, the value is one minus the upper
+confidence interval limit. For antagonism, this value is zero at any
+fraction affected value where the lower confidence interval limit
+is less than one. Otherwise, the value is the lower confidence interval
+limit minus one. These values can be useful for summarizing the index
+over a range of fraction affected values. For an example application,
+see \cite{BN08}.
+
+
+\subsection{Analysis of example data}
+The following code illustrates use of \pkg{mixlow} functions on a data set included with the package. 
+These data are for vincristine (vin), topotecan (topo), and their 1:1 mixture (mixture) tested 
+against A549 human lung cancer cells.  The response curve for vincristine suggests a non-zero asymptote.
+
+
+
+<<preliminaries, echo=FALSE, results=hide>>=
+options(prompt = "R> ", continue = "+  ")
+@
+
+1. Read the data file located in the mixlow/inst/exdata folder:
+
+<<load_data>>=
+library("mixlow")
+dataFile <- "A549_vin_topo_data.txt"
+
+trayData <- readDataFile(system.file("exdata", dataFile, package="mixlow"))
+
+trays <- getTrays(data=trayData) 
+drugs <- getDrugs(data=trayData)
+cellLines <- getCellLines(data=trayData)
+@
+
+2. Prepare the data:
+
+<<prepare_data>>=
+mixlowData <- prepareData(trayData=trayData, trays=trays[1:9], 
+    cellLines=cellLines[1]) 
+summary(mixlowData)
+@
+
+
+3. Run NLS analysis:
+
+<<NLS>>=
+parameterDefaults <- getNlsParameterDefaults(trays=trays[1:9])
+parameterDefaults["vin_tr1","param.lambda"] <- .2 
+parameterDefaults["vin_tr2","param.lambda"] <- .2 
+parameterDefaults["vin_tr3","param.lambda"] <- .2
+nlsData <- doNls(mixlowData=mixlowData, parameterDefaults)  
+summary(nlsData)
+@
+
+
+4. Run NLME analysis:
+
+<<NLME>>=
+nlmeData <- doNlme(mixlowData=mixlowData, nlsData=nlsData, analysis="multiple", 
+    varFunction=4) 
+summary(nlmeData)
+@
+
+5. Run Loewe analysis:
+<<Loewe1>>=
+loeweData <- doLoewe(mixlowData, nlmeData) 
+summary(loeweData)
+@
+<<Loewe2, eval=FALSE>>=
+loeweData <- doLoewe(mixlowData, nlmeData) 
+plot(loeweData)
+@
+
+\setkeys{Gin}{width=\textwidth}
+\begin{figure}[t!]
+\begin{center}
+<<Loewe-fig, fig=TRUE, height=5, width=10, eps=FALSE, echo=FALSE, results=hide>>=
+par(mfrow = c(1, 2))
+<<Loewe2>>
+@
+\caption{\label{fig:loewe} Loewe index for example data.}
+\end{center}
+\end{figure}
+
+The \code{plot} command will produce two graphs (see Figure~\ref{fig:loewe}), the first of which 
+shows the estimated Loewe index versus fraction affected values.
+
+NLME models can be compared by comparing their AIC and BIC values.  These can be 
+obtained by setting the \code{verbose} argument to TRUE in the function \code{doNlme}, 
+or by use of the \code{summary} method on the object returned by the \code{doNlme} function.
+To more formally compare two models, one can use the \code{anova} function, as demonstrated in the code snippet below.    
+
+<<anova>>=
+nlmeData1 <- doNlme(mixlowData=mixlowData, nlsData= nlsData, drugs=drugs[1:3], 
+    analysis="multiple", varFunction=3)
+nlmeData2 <- doNlme(mixlowData=mixlowData, nlsData= nlsData, drugs=drugs[1:3], 
+   analysis="multiple", varFunction=4)
+model1 <- nlmeData1$nlmeModels[[1]]
+model2 <- nlmeData2$nlmeModels[[1]]
+anova(model1,model2)
+@
+
+
+
+
+\section{Simulation study}
+
+Mixtures that contain more than a few drugs can be problematic in
+that the mixed-effects model may not converge or may take a long time
+to converge if all drugs and the mixture are analyzed together. If data are
+poorly behaved, convergence problems could occur for any size mixture.  If convergence 
+becomes a problem, one alternative is to estimate the concentration-response
+curve parameters separately for each drug and mixture. The user can
+instruct the \code{doNlme} function to perform this type of \code{single}
+analysis. The disadvantage of the single-drug approach is that control-well
+information is obtained from the trays of one drug only. In contrast,
+control-well data from all trays are used when all drugs and the mixture
+are analyzed together (\code{multiple} drug analysis). To determine if single-drug
+analysis makes a large difference in coverage of the confidence intervals
+of the Loewe index, a simulation was performed that compared the two
+approaches.
+
+The simulation is based on Simulation C discussed in \cite{BNB08}.
+Model (\ref{eq:ML}) was used to generate the simulation data using
+the parameters listed in Table~\ref{T5}. These parameters are typical for
+cytotoxicity assays. One thousand experiments were simulated. Each
+experiment involved three drugs tested in three trays, or nine trays
+in total. Each tray used 14 control wells, two \code{bbt} wells, and
+80 treatment wells (8 treatment wells for each of 10 drug concentrations).
+The experiment simulated a sham mixture of a drug with itself. Therefore,
+the parameters used to generate data for drug 1, drug 2, and drug
+3 were identical. Data for drug 3 were taken to represent the sham
+mixture of a 50/50 mixture of drugs 1 and 2. As a sham mixture, the
+true Loewe index is 1.0 for all fraction affected values. 
+
+%
+\begin{table}
+\noindent \begin{centering}
+\begin{tabular}{|c|c|}
+\hline 
+Parameter & Value\tabularnewline
+\hline
+\hline 
+$\log(\gamma_{d})$ & $-0.4138$ \tabularnewline
+\hline 
+$\psi_{d,0.5}$ & $-3.9841$ $\mathit{\mu}$g/ml\tabularnewline
+\hline 
+$\mu$ & 7.9429\tabularnewline
+\hline 
+$\sigma_{b}$ & 0.388\tabularnewline
+\hline 
+$\sigma$ & 2.1969\tabularnewline
+\hline 
+variance function & \code{4}\tabularnewline
+\hline 
+$\beta_{d}$ & 0.7429\tabularnewline
+\hline
+\end{tabular}
+\par\end{centering}
+
+\caption{Parameters used to generate simulation data.}
+
+\label{T5}
+
+\end{table}
+
+\begin{figure}[b!]
+\noindent \begin{centering}
+\includegraphics[width=11cm]{singleVsMultiple}
+\par\end{centering}
+
+\caption{Average coverage of the Loewe index based on 1,000 simulated experiments.
+The nominal coverage coefficient was 0.95.}
+
+\label{F3}
+
+\end{figure}
+
+Average coverage of the confidence intervals for the Loewe index over
+all 1,000 experiments is shown in Figure~\ref{F3} as a function of fraction
+affected values. The nominal coverage was 0.95. Mean coverage across
+all fraction affected values was 0.9612 for the multiple-drug analysis
+and 0.9607 for the single-drug analysis. Results suggest that coverage
+was near the nominal value for all fraction affected values, regardless
+of the type of analysis used. At fraction affected values near 0.58,
+coverage for multiple-drug analysis was closer to nominal values than
+for single-drug analysis (0.950 vs.\ 0.938, respectively). In conclusion,
+both types of analysis produced excellent coverage. Multiple-drug
+analysis is recommended, however, if convergence is not an issue.
+
+
+
+
+\section{Summary}
+
+This paper has introduced the \pkg{mixlow} package in \proglang{R}. The package should
+be useful for students, researchers, and technicians who need to obtain
+accurate parameter estimates for sigmoidal concentration-response curves
+based on in-vitro experiments. In addition, it should be useful to those who must estimate
+a drug interaction index to determine if a mixture is antagonistic,
+additive, or synergistic.
+
+
+
+\section*{Acknowledgments}
+This work was conducted at Stanford University, where John Boik was a VIGRE postdoctoral fellow.
+
+
+\bibliography{mixlow}
+
+\end{document}
+
