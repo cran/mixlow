@@ -9,22 +9,22 @@ function(data, trays=NULL, cellLines=NULL) {
   
   if ( is.null(trays) & (is.null(cellLines)==FALSE) ) {
     drugs = as.vector(drugRatios$drug[(drugRatios$cell %in% trays)])
-    return (unique(drugs))
+    return (sort(unique(drugs)))
     }
   
   if ( (is.null(trays)==FALSE) & is.null(cellLines) ) {
     drugs = as.vector(drugRatios$drug[(drugRatios$tray %in% trays)])
-    return (unique(drugs))
+    return (sort(unique(drugs)))
     }
 
   if ( (is.null(trays)==FALSE) & (is.null(cellLines)==FALSE) ) {
     drugs = as.vector(drugRatios$drug[(drugRatios$tray %in% trays) & (drugRatios$cell %in% cellLines)])
-    return (unique(drugs))
+    return (sort(unique(drugs)))
     }
   
   if ( is.null(trays) & is.null(cellLines) ) {
     drugs = as.vector(drugRatios$drug)
-    return (unique(drugs))
+    return (sort(unique(drugs)))
     }  
 
   }

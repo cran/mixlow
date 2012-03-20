@@ -1,6 +1,7 @@
 `plot.loeweData` <-
 function(x, ...) {
   ## graphs results from the Loewe analysis
+
   if (!inherits(x, "loeweData")) 
     stop("use only with \"loeweData\" objects")
   
@@ -42,8 +43,9 @@ function(x, ...) {
   cols = rep(c("black", "blue", "red", "purple", "green", "cyan"),4,each=1)
   typs = rep(1:6,4)
 
+  Ylim = c(min(ciL[,4]),min(10, max(ciL[,5])))
   plot(ciL[,2] ~ ciL[,1], type="l", col=cols[1],
-    ylim=c(min(ciL[,4]),max(ciL[,5])), main= tit,
+    ylim=Ylim, main= tit,
     ylab= yLab, xlab= xLab,lty=1)
   lines(ciL[,4] ~ ciL[,1], lty=2,col= cols[3],type="l")
   lines(ciL[,5] ~ ciL[,1], lty=2,col= cols[3], type="l")

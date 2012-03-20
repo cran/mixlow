@@ -1,20 +1,19 @@
-citHeader("To cite mixlow in publications use:")
+citHeader("To cite package 'mixlow' in publications use:")
 
-citEntry(entry = "Article",
-  title        = "An {R} Package for Assessing Drug Synergism/Antagonism",
-  author       = personList(as.person("John C. Boik"),
-                   as.person("Balasubramanian Narasimhan")),
-  journal      = "Journal of Statistical Software",
-  year         = "2010",
-  volume       = "34",
-  number       = "6",
-  pages        = "1--18",
-  url          = "http://www.jstatsoft.org/v34/i06/",
+if(!exists("meta") || is.null(meta)) meta <- packageDescription("mixlow")
 
-  textVersion  =
-  paste("John C. Boik, Balasubramanian Narasimhan (2010).",
-        "An R Package for Assessing Drug Synergism/Antagonism.",
-        "Journal of Statistical Software, 34(6), 1-18.",
-        "URL http://www.jstatsoft.org/v34/i06/.")
-)
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
+vers <- paste("R package version", meta$Version)
+
+citEntry(entry="Manual",
+         title = "mixlow: software for assessing drug synergism/antagonism",
+         author = personList(as.person("John C. Boik")),
+         year = year,
+         note = vers,
+
+         textVersion =
+         paste("John C. Boik (",
+               year,
+               "). mixlow: software for assessing drug synergism/antagonism. ",
+               vers, ".", sep=""))
 

@@ -81,7 +81,18 @@ function(x, ...) {
   for (ii in seq(1,length(graphData$drugs))) { 
 
     drugData = graphData$drugs[[ii]] 
+    drugTrays = drugData$trays
     
+    cnt = 0
+    xMax = 0
+    # loop through each tray to find x range
+    for (tr in drugTrays) {
+      cnt = cnt + 1
+      if (max(drugData$lineList[[cnt]]$linesX) > xMax) 
+        xMax = max(drugData$lineList[[cnt]]$linesX)
+      }
+    xMin = min(drugData$x)
+
 
     
     # get tray list
@@ -95,12 +106,13 @@ function(x, ...) {
     typs = rep(1:6,4)
     plot(drugData$y ~ drugData$x,
           log="x", type="n", main= drugData$title,
-          ylab= yLab, xlab= xLab, ylim= drugData$ylim)
+          ylab= yLab, xlab= xLab, ylim= drugData$ylim, xlim= c(xMin,xMax))
     
     cnt = 0
     # loop through each tray
     for (tr in drugTrays) {
       cnt = cnt + 1
+      if (length(drugData$lineList[[cnt]]$linesY) != length(drugData$lineList[[cnt]]$linesX)) next
       lines(drugData$lineList[[cnt]]$linesY ~ drugData$lineList[[cnt]]$linesX, type="l", col=cols[cnt], lty=typs[cnt], lwd= 2)
       }
     

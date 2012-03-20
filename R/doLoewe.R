@@ -29,6 +29,9 @@ function(mixlowData, nlmeData, verbose=FALSE)
   locations = mixtureList$locations
   mix = mixtureList$mixture
   ndrugs = length(drugs) 
+  
+  if (any(fractions == 1))
+    stop("Loewe analysis can only be used if the drug set contains a mixture")
 
   if ( (mixtureList$analysis == "multiple") & (length(locations) > 1) ) 
     stop("Analysis=multiple but more than one NLME result is being used")

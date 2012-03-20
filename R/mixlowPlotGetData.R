@@ -40,9 +40,10 @@ function(data, trays)
     xxA = Adj$xx
     predA = Adj$pred
     
+  
     graphingData[[trayCnt]] = list(drug=drug, cell=cell, Units= Units, title= tit, 
       adjResp= dat2$adj_resp[dat2$tray %in% trays], adjConc= dat2$adj_conc[dat2$tray %in%trays], 
-      ylim= c(0, max(data0$adj_resp[dat2$tray==tr])), 
+      ylim= c(0, max(dat2$adj_resp[dat2$tray==tr])), 
       meanLineY= as.vector(tmp$y), meanLineX= as.vector(tmp$x),
       blankY= yA, blankX= xA, blankLineY= predA, blankLineX= xxA)
     

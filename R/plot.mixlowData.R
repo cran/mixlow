@@ -1,7 +1,7 @@
 `plot.mixlowData` <-
 function(x, ...) {
   ## plots the adjusted data by tray
-  
+
   if (!inherits(x, "mixlowData")) 
     stop("Use only with \"mixlowData\" objects.  Run prepareData() first.")
   

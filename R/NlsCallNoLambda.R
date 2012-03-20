@@ -9,6 +9,9 @@ function(numRandomTries, p.ran, g.ran, x, y, u0, tr, verbose)
   cnt = 0
   
   # loop thought NLS model for each random set of p and g
+  #nls.control(maxiter = 5000, tol = 1e-05, minFactor = 1/1024, printEval = FALSE, warnOnly = FALSE)
+
+  
   for (j in seq(1,numRandomTries+1)) {
     try(
     {
@@ -34,7 +37,7 @@ function(numRandomTries, p.ran, g.ran, x, y, u0, tr, verbose)
   minn = min(hits$BIC)
   hits2 = hits[abs(hits$BIC-minn) < abs(minn/20),]
   if (verbose==TRUE) writeLines ("\n mean parameters where BIC is near minimum")
-  hits2.mean = mean(hits2)
+  hits2.mean = colMeans(hits2)
   if (verbose==TRUE) print (hits2.mean)
   
   # call NLS model using best starting values

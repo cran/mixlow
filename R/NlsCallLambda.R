@@ -34,7 +34,8 @@ function(numRandomTries, p.ran, g.ran, x, y, u0, tr, lambda0, verbose)
   minn = min(hits$BIC)
   hits2 = hits[abs(hits$BIC-minn) < abs(minn/20),]
   if (verbose==TRUE) writeLines ("\n mean parameters where BIC is near minimum")
-  hits2.mean = mean(hits2)
+  #hits2.mean = mean(hits2)
+  hits2.mean = colMeans(hits2)
   if (verbose==TRUE) print (hits2.mean)
   
   # call NLS model using best starting values

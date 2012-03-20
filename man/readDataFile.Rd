@@ -81,12 +81,6 @@ A list of class trayData with components:
         tray} 
 }
 
-\references{
-  Boik J.C., Narasimhan N. (2010).
-  An R Package for Assessing Drug Synergism/Antagonism.
-  \emph{Journal of Statistical Software}, \bold{34}(6), 1--18.
-}
-
 \author{John Boik \email{john.boik@newearthbiomed.org}}
 
 \seealso{

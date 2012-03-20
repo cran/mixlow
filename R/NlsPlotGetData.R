@@ -47,6 +47,9 @@ function(mixlowData, nlsData, trays)
     xxA = Adj$xx
     predA = Adj$pred
     
+
+    
+    
     pred = nls.graphing[[trayCnt]]$pred
     xx = nls.graphing[[trayCnt]]$xx
     

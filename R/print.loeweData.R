@@ -10,7 +10,7 @@ function(x, ...) {
   
   if (is.null(arglist$verbose)) verbose = TRUE
 
-
+  loeweData = x
 
   if (verbose == TRUE){
     writeLines("\ndrugs:  ")

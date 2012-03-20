@@ -27,13 +27,13 @@ Plot functions are available to view results graphically.
 John Boik \email{john.boik@newearthbiomed.org}
 }
 \references{
-  Boik J.C., Newman R.A., Boik R.J. (2008).
-  Quantifying Synergism/Antagonism Using Nonlinear Mixed-Effects Modeling:
-  A Simulation Study. \emph{Statistics in Medicine}, \bold{27}(7), 1040--1061
+Boik J.C., Newman R.A., Boik R.J. (2008) Quantifying 
+synergism/antagonism using nonlinear mixed-effects modeling: a 
+simulation study.  Statistics in Medicine 27(7), 1040-61
 
-  Boik J.C., Narasimhan N. (2010).
-  An R Package for Assessing Drug Synergism/Antagonism.
-  \emph{Journal of Statistical Software}, \bold{34}(6), 1--18.
+Boik J.C. Narasimhan B. (2008, submitted) "Introducing the R Package 
+mixlow for Assessment of Drug Synergism/Antagonism"
+
 }
 \examples{
 # trayData data object is obtained using the readDataFile function

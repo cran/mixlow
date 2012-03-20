@@ -17,33 +17,39 @@ function(mixlowData, nlsData, drugs=getDrugs(mixlowData), analysis="multiple",
   drugRatios = mixlowData$drugRatios
   
   # check for number of drugs
-  if (length(drugs) < 3) 
-    stop("Drugs must contain at least two drugs and one mixture")
+  newDrugVector = drugs[1]   # default, for single drug
   
-  # order drugs so mixture is last
-  newDrugVector = numeric(0)
-  mixFlag = 0
-  for (i in seq(1,length(drugs))) {
-    dr = drugs[i]
-    ratio = drugRatios[,dr]
+  if (length(drugs) !=1)  {
+    # length will be 1 if a single drug is being analyzed alone.  Else, the drug set will contain a mixture.
 
-    
-    if (all(ratio==0)) {
-      if (mixFlag == 1)
-        stop("Drugs for analysis can contain only one mixture")
-      mixFlag = 1
-      mix = dr
+    # order drugs so mixture is last
+    newDrugVector = numeric(0)
+    mixFlag = 0
+    for (i in seq(1,length(drugs))) {
+      dr = drugs[i]
+      ratio = drugRatios[,dr]
+
+      
+      if (all(ratio==0)) {
+        if (mixFlag == 1)
+          stop("Drugs for analysis can contain only one mixture")
+        mixFlag = 1
+        mix = dr
+        }
+      if (any(ratio>0))
+        newDrugVector = c(newDrugVector,dr)
       }
-    if (any(ratio>0))
-      newDrugVector = c(newDrugVector,dr)
-    }
-  newDrugVector = c(newDrugVector,mix)
+    
+    if (mixFlag != 0) {
+      #stop("Drugs must contain at least two drugs and one mixture.  No mixture present.")
+      newDrugVector = c(newDrugVector,mix)
+      }
+
+    }    
 
   drugs0 = newDrugVector
   
-  # error if no mixture
-  if (mixFlag == 0) 
-    stop("Drug list does not contain a mixture")
+
        
   # remove entries for blanks
   data00 <- data00[data00$label=="rx",]
@@ -56,7 +62,8 @@ function(mixlowData, nlsData, drugs=getDrugs(mixlowData), analysis="multiple",
   if (analysis == "single")
     numberOfAnalysis = length(drugs0)
     
-
+  
+  
   # loop over each set of drugs to be modeled ----------------------------------------------------------------------
   for (setNum in seq(1,numberOfAnalysis)) {
     
@@ -143,6 +150,8 @@ function(mixlowData, nlsData, drugs=getDrugs(mixlowData), analysis="multiple",
     
     # setup call to NLME and then call NLME, return NLME results for best model
     meth = method
+    
+
     best2 <- NlmeSetupCall(ord, paramList, dat1, method, varFunction, cell, analysis, verbose)
     
     if(best2$best==0) {

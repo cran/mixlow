@@ -27,7 +27,8 @@ function(mixlowData, parameterDefaults, lambdaThreshold=0.05, numRandomTries=10,
     
     # setup data for NLS
     dat2 = crData[crData$tray==tr & crData$label == "rx",]
-    cntrl = mean(dat2$adj_resp[dat2$conc==0])
+    #cntrl = mean(dat2$adj_resp[dat2$conc==0])
+    cntrl = mean(as.numeric(as.vector(dat2$adj_resp[dat2$conc==0])))
     dat2$scaled = dat2$adj_resp/cntrl
       
     # setup xx to be used for graphing predictions

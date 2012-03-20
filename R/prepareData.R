@@ -30,8 +30,10 @@ function(trayData, drugs= NULL, trays=NULL, cellLines=NULL, degree=3)
   # check that all ratios sum to one
   for (i in seq(1,dim(dRatios)[1]))  {
     ratios = as.vector(dRatios[i,7:dim(dRatios)[2]])
-    if (!sum(ratios)==1)
+    if (abs(sum(ratios)-1) > .000001){
+      writeLines(paste("\nsum= ", sum(ratios), sep=""))  
       stop("Ratios (by row in drugRatios) should sum to one.")
+      }
     }
     
   # check that only one cell line is selected
@@ -71,7 +73,7 @@ function(trayData, drugs= NULL, trays=NULL, cellLines=NULL, degree=3)
       {
       # adjust conc for bbt blanks: -----------------------------------------
       tmp = as.list(crData[crData$tray==tr & crData$label == "bbt", c("adj_conc", "resp")])
-      blank = mean(tmp$resp)
+      blank = mean(as.numeric(as.vector(tmp$resp)))
       crData$adj_resp[crData$tray==tr & crData$label == "rx"] = crData$resp[crData$tray==tr & crData$label == "rx"] - blank
       
       # save  for plotting
@@ -92,6 +94,10 @@ function(trayData, drugs= NULL, trays=NULL, cellLines=NULL, degree=3)
       # fit response~concentration in "blanks" wells using polynomial
       y = as.numeric(tmp)
       x = as.numeric(names(tmp))
+      
+      if (length(x) == 1)
+        {stop("Only one summarized concentration-response point available---did you include a proper concentration for each bbc well?")}
+      
       if (degree == 4) model = nls(y~ a + b*x + c*x^2 + d*x^3 + e*x^4, data.frame(y,x), start= c(a=min(y),b=0,c=0,d=0,e=0))
       if (degree == 3) model = nls(y~ a + b*x + c*x^2 + d*x^3 , data.frame(y,x), start= c(a=min(y),b=0,c=0,d=0))
       if (degree == 2) model = nls(y~ a + b*x + c*x^2, data.frame(y,x), start= c(a=min(y),b=0,c=0))
